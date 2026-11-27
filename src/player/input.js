@@ -140,6 +140,11 @@ function createInput(i) {
         (A(), P.preventDefault());
         return;
       }
+      if (P.button === 2) {
+        // right click toggles aim: click once to scope in, click again to scope out
+        ((u |= 4), (j = !j), M && M.btn.ads.classList.toggle('active', j), P.preventDefault());
+        return;
+      }
       ((u |= 1 << P.button), d('mouse', g(P.button), !0), P.preventDefault());
     }
   }),
@@ -166,7 +171,7 @@ function createInput(i) {
       if (((f.locked = document.pointerLockElement === e), f.locked))
         ((a = !0), (l = 0), (c = 0), f.touch || p('lock'));
       else {
-        (o.mouse.clear(), n.delete('fire'), n.delete('ads'));
+        (o.mouse.clear(), n.delete('fire'), n.delete('ads'), (j = !1), M && M.btn.ads.classList.remove('active'));
         for (let P of o.key) n.add(P);
         u = 0;
       }
