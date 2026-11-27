@@ -6,22 +6,22 @@ Mỗi giai đoạn được làm trên một nhánh riêng (`phase-N`). Xong gia
 
 ---
 
-## 🟨 Giai đoạn 0 · Chuẩn bị nền
+## ✅ Giai đoạn 0 · Chuẩn bị nền
 Chuyển game từ một file minify sang project dễ phát triển. Gameplay giữ nguyên.
 
-- [ ] 0.1 Dựng project Vite, cài Three.js qua npm
-- [ ] 0.2 Tách code thành module: `render`, `world`, `player`, `weapon`, `enemies`, `mission`, `audio`, `ui`, `shaders`
-- [ ] 0.3 Đặt lại tên các biến và hàm chính cho dễ đọc
-- [ ] 0.4 Build ra một file `index.html` và tự động deploy lên GitHub Pages
+- [x] 0.1 Dựng project Vite, cài Three.js qua npm
+- [x] 0.2 Tách code thành module: `render`, `world`, `player`, `weapon`, `enemies`, `mission`, `audio`, `ui`, `shaders`
+- [x] 0.3 Đặt lại tên các biến và hàm chính cho dễ đọc
+- [x] 0.4 Build ra một file `index.html` và tự động deploy lên GitHub Pages
 
 **Play test:**
-- [ ] Game chạy giống hệt bản cũ
-- [ ] Cắt đủ 3 relay, lên được thuyền, hiện màn hình tổng kết
+- [x] Game chạy giống hệt bản cũ (so ảnh chụp từng pixel: khác < 0,1%)
+- [x] Cắt đủ 3 relay, lên được thuyền, hiện màn hình tổng kết (test tự động)
 - [ ] FPS không giảm so với bản cũ
 
 ---
 
-## ⬜ Giai đoạn 1 · Cảm giác bắn
+## 🟨 Giai đoạn 1 · Cảm giác bắn
 - [ ] 1.1 Vết đạn trên container, thép, bê tông (tự mờ dần)
 - [ ] 1.2 Vỏ đạn văng ra, nảy trên sàn, có tiếng leng keng
 - [ ] 1.3 Tia lửa và mảnh vụn khác nhau theo bề mặt

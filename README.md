@@ -39,7 +39,7 @@ You are the **Breacher**. Control's orders are simple:
 | | |
 |---|---|
 | 🎨 **Generated in the browser** | Every surface, machine and sound is created when the game runs. It downloads no textures, models or audio files. |
-| 📦 **One HTML file** | The whole game is in `index.html`. Open it and play, with no build step, server or install. |
+| 📦 **One HTML file** | The build packs the whole game into one `index.html` that runs with no server or install. |
 | 🌅 **Atmospheric harbor** | A custom sky, a moving sea, shadows, post-processing and seagulls overhead. The terminal is full of cranes, containers, warning signs and a docked ship. |
 | 🤖 **Escalating AI** | Enemies patrol, pursue and come in waves that grow stronger with every relay you cut. |
 | 🎮 **Plays on anything** | Supports keyboard and mouse, touch screens and gamepads. |
@@ -102,13 +102,14 @@ You are the **Breacher**. Control's orders are simple:
 
 **Play online:** open **[buinghiemtrang.github.io/irontide](https://buinghiemtrang.github.io/irontide/)**.
 
-**Play locally:**
+**Run locally (development):**
 
 ```bash
 git clone https://github.com/buinghiemtrang/irontide.git
 cd irontide
-# Open index.html in a modern browser, or serve it locally:
-python3 -m http.server 8000   # then visit http://localhost:8000
+npm install
+npm run dev        # dev server with hot reload
+npm run build      # builds a single self-contained dist/index.html
 ```
 
 Works best in a recent version of **Chrome, Edge, Firefox or Safari** with WebGL enabled.
@@ -127,12 +128,36 @@ Settings are saved in your browser between sessions.
 
 ---
 
+## 🗂️ Project Structure
+
+```
+src/
+├── main.js              # boot sequence + main loop
+├── core/                # config, events, RNG, math, geometry helpers
+├── render/              # renderer, post-processing, sky, materials
+├── world/               # level layout, physics, backdrop, ground, props
+├── fx/                  # tracers, smoke, sparks, explosions, rain
+├── audio/               # procedural sound synthesis + mixer
+├── player/              # input (keyboard, mouse, touch, gamepad) + movement
+├── combat/              # hit detection and damage
+├── weapon/              # first-person rifle
+├── enemies/             # Gulls, Hounds and their AI
+├── ui/                  # HUD, menus, settings
+├── game/                # mission flow, objectives, radio
+└── styles/ui.css
+```
+
+See [ROADMAP.md](ROADMAP.md) for planned updates.
+
+---
+
 ## 🧱 Built With
 
 - **[Three.js](https://threejs.org/)** for WebGL rendering
 - **Custom GLSL shaders** for the sky, sea, shadows and post-processing
 - **Web Audio API** for sound generated as you play
 - **Vanilla JavaScript and CSS**, with no frameworks
+- **[Vite](https://vite.dev/)** to build everything into one HTML file
 
 ---
 
