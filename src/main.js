@@ -23,6 +23,9 @@ import { createPlayer } from './player/player.js';
 import { createCombat } from './combat/combat.js';
 import { createHud } from './ui/hud.js';
 import { createMission } from './game/mission.js';
+import { applyCondition, pickCondition } from './core/conditions.js';
+import { loadSettings } from './ui/menu.js';
+import { createNightLights, trackLampProps } from './world/nightlights.js';
 
 var SHOWCASES = {
   mats: materialsModule,
@@ -84,6 +87,7 @@ async function boot() {
     quality: pickQuality(i.q || (i.shot ? 'test' : '')),
   };
   window.__G = t;
+  applyCondition(t, pickCondition(i, loadSettings()));
   let n = i.show && SHOWCASES[i.show] ? i.show : null;
   t.showcase = n;
   let s = null;
@@ -119,6 +123,7 @@ async function boot() {
     await r('mats', 'materials', () => createMaterials(t)),
     (t.physics = createPhysics(t)),
     (t.props = createProps(t)),
+    trackLampProps(t),
     (t.input = n ? createStubInput() : createInput(t)),
     n)
   ) {
@@ -191,6 +196,7 @@ async function boot() {
   }
   await setBootProgress('Waiting for first light', 0.92);
   try {
+    n || (t.nightLights = createNightLights(t));
     await t.render.onLevelReady();
   } catch (h) {
     console.error('[boot] render.onLevelReady failed: ' + ((h && h.stack) || h));
@@ -259,7 +265,8 @@ async function boot() {
           t.weapon.setWetness(c);
         } catch {}
       }
-      (t.game.state !== 'paused' && (u('fx', p), u('ground', p), u('level', p), u('backdrop', p), u('mats', p)),
+      (t.game.state !== 'paused' &&
+        (u('fx', p), u('nightLights', p), u('ground', p), u('level', p), u('backdrop', p), u('mats', p)),
         u('audio', p),
         u('hud', p),
         s && (t.camera.position.copy(s.pos), t.camera.lookAt(s.look)),

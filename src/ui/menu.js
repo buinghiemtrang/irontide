@@ -1,7 +1,8 @@
 import { PLAYER_BODY, QUALITY_PRESETS } from '../core/config.js';
+import { CONDITIONS, CONDITION_IDS } from '../core/conditions.js';
 
 var SETTINGS_KEY = 'irontide.settings.v1';
-var DEFAULT_SETTINGS = { quality: 'auto', sens: 1, invertY: !1, volume: 0.8, fov: PLAYER_BODY.fov };
+var DEFAULT_SETTINGS = { quality: 'auto', sens: 1, invertY: !1, volume: 0.8, fov: PLAYER_BODY.fov, cond: 'dawn' };
 var QUALITY_LEVELS = ['low', 'medium', 'high', 'ultra'];
 function loadSettings() {
   let i = { ...DEFAULT_SETTINGS };
@@ -13,7 +14,8 @@ function loadSettings() {
       Number.isFinite(e.sens) && (i.sens = Math.min(3, Math.max(0.2, e.sens))),
       (i.invertY = !!e.invertY),
       Number.isFinite(e.volume) && (i.volume = Math.min(1, Math.max(0, e.volume))),
-      Number.isFinite(e.fov) && (i.fov = Math.min(95, Math.max(60, e.fov))));
+      Number.isFinite(e.fov) && (i.fov = Math.min(95, Math.max(60, e.fov))),
+      CONDITION_IDS.includes(e.cond) && (i.cond = e.cond));
   } catch {}
   return i;
 }
@@ -33,7 +35,8 @@ var $C = `
     <div><dt>Jump</dt><dd><kbd>Space</kbd></dd></div>
     <div><dt>Sprint</dt><dd><kbd>Shift</kbd></dd></div>
     <div><dt>Crouch</dt><dd><kbd>C</kbd> or <kbd>Ctrl</kbd></dd></div>
-    <div><dt>Melee</dt><dd><kbd>F</kbd></dd></div>
+    <div><dt>Melee</dt><dd><kbd>V</kbd></dd></div>
+    <div><dt>Flashlight</dt><dd><kbd>F</kbd></dd></div>
     <div><dt>Pause</dt><dd><kbd>Esc</kbd> or <kbd>P</kbd></dd></div>
   </dl>`;
 var ZC = `
@@ -59,9 +62,13 @@ function createMenu(i, e) {
 
     <section class="m-screen m-title" data-s="title" aria-label="Irontide">
       <div class="m-title-main">
-        <div class="m-eyebrow"><span class="m-tag">B4</span><span>Port Authority Breach Unit</span><span class="m-dim">Irontide Terminal \xB7 05:42</span></div>
+        <div class="m-eyebrow"><span class="m-tag">B4</span><span>Port Authority Breach Unit</span><span class="m-dim">Irontide Terminal \xB7 ${clockOf(i)}</span></div>
         <h1 class="m-word">IRONTIDE</h1>
         <p class="m-premise">The port\u2019s security net has gone feral. Cut its three uplinks. Reach the boat.</p>
+        <div class="m-cond" role="group" aria-label="Conditions">
+          <span class="m-cond-k">Conditions</span>
+          <div class="cond-seg">${CONDITION_IDS.map((c) => `<button data-cond="${c}" aria-pressed="${c === condOf(i)}">${CONDITIONS[c].label}</button>`).join('')}</div>
+        </div>
         <div class="m-actions">
           <button class="btn primary" data-act="deploy">Deploy</button>
           <button class="btn" data-act="settings">Settings</button>
@@ -71,7 +78,7 @@ function createMenu(i, e) {
       </div>
       <aside class="m-legend" aria-label="Controls at a glance">
         <div><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> Move</span><span><kbd>Mouse</kbd> Look</span><span><kbd>LMB</kbd> Fire</span><span><kbd>RMB</kbd> Aim</span><span><kbd>R</kbd> Reload</span></div>
-        <div><span><kbd>E</kbd> Cut relay</span><span><kbd>Space</kbd> Jump</span><span><kbd>Shift</kbd> Sprint</span><span><kbd>C</kbd> Crouch</span><span><kbd>Esc</kbd> Pause</span></div>
+        <div><span><kbd>E</kbd> Cut relay</span><span><kbd>Space</kbd> Jump</span><span><kbd>Shift</kbd> Sprint</span><span><kbd>C</kbd> Crouch</span><span><kbd>F</kbd> Light</span><span><kbd>Esc</kbd> Pause</span></div>
         <div class="lg-touch"><em>Touch</em><span>Left thumb moves</span><span>Right thumb looks</span><span>Fire \xB7 Aim \xB7 Reload \xB7 Jump on screen</span></div>
       </aside>
     </section>
@@ -131,11 +138,11 @@ function createMenu(i, e) {
         <p class="panel-note">If the browser will not capture the mouse, hold a mouse button and drag to look (left also fires, right also aims). Arrow keys or <kbd>I</kbd><kbd>J</kbd><kbd>K</kbd><kbd>L</kbd> turn, <kbd>Enter</kbd> fires.</p>
         <h3>Touch</h3>${ZC}
         <h3>Gamepad</h3>
-        <p class="panel-note">Sticks move and look \xB7 RT fire \xB7 LT aim \xB7 A jump \xB7 B crouch \xB7 X reload \xB7 Y cut relay \xB7 L3 sprint \xB7 Start pause.</p>
+        <p class="panel-note">Sticks move and look \xB7 RT fire \xB7 LT aim \xB7 A jump \xB7 B crouch \xB7 X reload \xB7 Y cut relay \xB7 D-pad up flashlight \xB7 L3 sprint \xB7 Start pause.</p>
       </div>
     </div>
 
-    <div class="loc-card" aria-hidden="true"><i></i><b>Irontide Terminal \xB7 Berth 4 \xB7 05:42</b><span>Port Authority Breach Unit \u2014 one breacher, no backup</span></div>
+    <div class="loc-card" aria-hidden="true"><i></i><b>Irontide Terminal \xB7 Berth 4 \xB7 ${clockOf(i)}</b><span>Port Authority Breach Unit \u2014 one breacher, no backup</span></div>
   `),
     t.appendChild(s));
   let o = (U) => s.querySelector(U),
@@ -249,6 +256,21 @@ function createMenu(i, e) {
         U.focus({ preventScroll: !0 });
       } catch {}
   }
+  // conditions change the whole scene's lighting, which is built at boot: save and reload
+  s.addEventListener('click', (U) => {
+    let b = U.target.closest('[data-cond]');
+    if (!b || b.dataset.cond === condOf(i)) return;
+    ((n.cond = b.dataset.cond), saveSettings(n));
+    for (let x of s.querySelectorAll('[data-cond]')) x.setAttribute('aria-pressed', String(x === b));
+    let boot = document.getElementById('boot'),
+      msg = document.getElementById('boot-msg');
+    (boot && ((boot.hidden = !1), boot.classList.remove('done')),
+      msg && (msg.textContent = 'Changing conditions'),
+      setTimeout(() => {
+        let url = new URL(location.href);
+        (url.searchParams.delete('cond'), location.replace(url.toString()));
+      }, 120));
+  });
   (s.addEventListener('click', (U) => {
     let T = U.target.closest('button');
     if (!T || !s.contains(T)) return;
@@ -337,4 +359,11 @@ function createMenu(i, e) {
   return (g(), q);
 }
 
-export { createMenu };
+export { createMenu, loadSettings, saveSettings };
+
+function condOf(G) {
+  return (G.condition && G.condition.id) || 'dawn';
+}
+function clockOf(G) {
+  return (G.condition && G.condition.clock) || '05:42';
+}

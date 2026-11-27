@@ -8,6 +8,8 @@ var SKY_COLORS = {
   horizonAway: new Color(0.16, 0.22, 0.3),
   fog: new Color(0.42, 0.47, 0.52),
 };
+// extra sky controls set by the mission condition (see core/conditions.js)
+var SKY_STYLE = { gain: 1, cover: 0, night: 0 };
 var PLAYER_BODY = { eye: 1.68, crouchEye: 1.05, radius: 0.32, height: 1.8, fov: 74, viewFov: 54 };
 var vf = 0;
 var zc = 1;
@@ -103,4 +105,4 @@ function pickQuality(i) {
   };
 }
 
-export { PLAYER_BODY, QUALITY_PRESETS, SKY_COLORS, SUN, WORLD_BOUNDS, pickQuality, vf, zc };
+export { SKY_STYLE, PLAYER_BODY, QUALITY_PRESETS, SKY_COLORS, SUN, WORLD_BOUNDS, pickQuality, vf, zc };

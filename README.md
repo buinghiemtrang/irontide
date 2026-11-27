@@ -40,6 +40,7 @@ You are the **Breacher**. Control's orders are simple:
 |---|---|
 | 🎨 **Generated in the browser** | Every surface, machine and sound is created when the game runs. It downloads no textures, models or audio files. |
 | 📦 **One HTML file** | The build packs the whole game into one `index.html` that runs with no server or install. |
+| 🌗 **Three conditions** | Play at **Dawn**, in a **Storm** with heavy rain and lightning, or at **Night** under floodlights with a weapon flashlight. |
 | 🌅 **Atmospheric harbor** | A custom sky, a moving sea, shadows, post-processing and seagulls overhead. The terminal is full of cranes, containers, warning signs and a docked ship. |
 | 🤖 **Escalating AI** | Enemies patrol, pursue and come in waves that grow stronger with every relay you cut. |
 | 🎮 **Plays on anything** | Supports keyboard and mouse, touch screens and gamepads. |
@@ -65,6 +66,7 @@ You are the **Breacher**. Control's orders are simple:
 | Jump | `Space` |
 | Sprint | `Shift` |
 | Crouch | `C` |
+| Flashlight | `F` |
 | Pause | `Esc` |
 
 </td><td>
@@ -79,6 +81,7 @@ You are the **Breacher**. Control's orders are simple:
 | Reload | `X` |
 | Cut relay | `Y` |
 | Sprint | `L3` |
+| Flashlight | D-pad up |
 | Pause | `Start` |
 
 </td><td>

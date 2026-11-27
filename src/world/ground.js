@@ -1180,7 +1180,12 @@ function Nb(i, e) {
         let q = H[O];
         q && q.w > 0 ? f[O].set(q.x, q.z, q.w * 0.5, (q.d || q.w) * 0.5) : f[O].set(0, 0, -1, -1);
       }
-      ((A -= w), A <= 0 && ((A = 30 + t() * 30), i.events.emit('thunder', { intensity: 0.3 + 0.7 * t() })));
+      ((A -= w),
+        A <= 0 &&
+          ((A = thunderGap(i, t)),
+          i.events.emit('thunder', {
+            intensity: (i.condition && i.condition.id === 'storm' ? 0.55 : 0.3) + 0.45 * t(),
+          })));
     },
   };
 }
@@ -1313,3 +1318,9 @@ async function groundShowcase(i) {
 }
 
 export { createGround, groundModule };
+
+// seconds until the next thunder strike for the current condition
+function thunderGap(G, rnd) {
+  const [lo, hi] = (G.condition && G.condition.thunder) || [30, 60];
+  return lo + rnd() * (hi - lo);
+}

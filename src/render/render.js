@@ -44,7 +44,7 @@ import {
   WebGLRenderer,
 } from 'three';
 import { defineExports } from '../core/esm.js';
-import { PLAYER_BODY, QUALITY_PRESETS, SKY_COLORS, SUN, vf, zc } from '../core/config.js';
+import { PLAYER_BODY, QUALITY_PRESETS, SKY_COLORS, SKY_STYLE, SUN, vf, zc } from '../core/config.js';
 import { $e, Wi, makeMesh } from '../core/geometry.js';
 
 var renderModule = {};
@@ -86,7 +86,7 @@ var H6 = `
 // IRONTIDE_SKY
 precision highp float;
 varying vec3 vDir;
-uniform float uTime, uEnv, uFlash;
+uniform float uTime, uEnv, uFlash, uSkyGain, uCover, uNight;
 uniform vec3 uFlashDir;
 ${Ug}
 ${Ng}
@@ -103,8 +103,9 @@ void main(){
   vec3 midC = mix(vec3(0.15, 0.24, 0.36), vec3(0.72, 0.50, 0.34), pow(ts, 3.0));   // pale band above the fire
   vec3 clearC = mix(hc, midC, smoothstep(0.0, 0.17, h));
   clearC = mix(clearC, vec3(0.085, 0.145, 0.24), smoothstep(0.10, 0.5, h));
+  clearC *= uSkyGain;
   // aureole (mie glow round the sun)
-  clearC += uSunCol * vec3(1.0, 0.86, 0.68) * (pow(s, 8.0) * 0.14 + pow(s, 64.0) * 0.55 + pow(s, 600.0) * 2.2 + pow(s, 6000.0) * 14.0);
+  clearC += uSunCol * vec3(1.0, 0.86, 0.68) * (pow(s, 8.0) * 0.14 + pow(s, 64.0) * 0.55 + pow(s, 600.0) * 2.2 + pow(s, 6000.0) * 14.0) * (1.0 - 0.9 * uCover);
 
   // ---- cloud deck ----
   vec2 cuv = d.xz / (h + 0.10) * vec2(0.62, 0.95);          // rolls of cloud run roughly east-west
@@ -127,6 +128,9 @@ void main(){
   // the sun always burns through a ragged hole in the gap, never sits behind solid cloud
   float hole = smoothstep(0.972, 0.9985, mu + (dens - 0.5) * 0.012);
   cov *= 1.0 - 0.93 * hole;
+  // storms close the gap: heavy overcast all the way down to the horizon
+  cov = mix(cov, max(cov, smoothstep(-0.02, 0.06, h) * (0.82 + 0.18 * smoothstep(0.3, 0.6, body))), uCover);
+  hole *= 1.0 - uCover;
   // thin scud drifting in the gap (veils the sun a little, catches fire)
   float scud = smoothstep(0.55, 0.85, fbm3(q * vec2(0.55, 1.9) + 31.0)) * (1.0 - deck) * smoothstep(0.02, 0.10, h) * 0.55 * (1.0 - 0.8 * hole);
 
@@ -138,9 +142,10 @@ void main(){
   vec3 cool = mix(vec3(0.155, 0.195, 0.255), vec3(0.030, 0.042, 0.064), thick);       // slate, darker where the deck is thick
   cool *= 0.55 + 0.9 * relief * relief;
   cool += vec3(0.07, 0.10, 0.15) * pow(1.0 - thick, 3.0);                             // thin spots let cold light through
+  cool *= uSkyGain;
   // warm light raking the underside from the gap: strongest near the sun and near the deck edge
   float nearSun = pow(ts, 5.0) * exp(-max(h - edge, 0.0) * 4.5) * 0.9 + pow(s, 7.0) * 0.9;
-  vec3 warm = (uHor * vec3(1.30, 0.66, 0.40)) * nearSun * (0.05 + 2.2 * relief * relief * relief) * 1.15;
+  vec3 warm = (uHor * vec3(1.30, 0.66, 0.40)) * nearSun * (0.05 + 2.2 * relief * relief * relief) * 1.15 * (1.0 - 0.85 * uCover);
   // burning rim where cloud thins at the edge of the gap
   float rim = cov * (1.0 - cov) * 4.0;
   warm += uSunCol * rim * pow(ts, 4.0) * (0.5 + 1.6 * pow(s, 6.0)) * (1.0 - 0.85 * hole);
@@ -152,13 +157,23 @@ void main(){
   cloudC = mix(cloudC, hc * 0.55 + cloudC * 0.45, exp(-h * 11.0));
 
   vec3 col = mix(clearC, cloudC, cov * 0.985);
-  vec3 scudC = mix(vec3(0.10, 0.11, 0.14), uHor * 1.5, pow(ts, 3.0)) + uSunCol * pow(s, 24.0) * 2.0;
+  vec3 scudC = mix(vec3(0.10, 0.11, 0.14) * uSkyGain, uHor * 1.5, pow(ts, 3.0)) + uSunCol * pow(s, 24.0) * 2.0;
   col = mix(col, scudC, scud);
 
   // sun disk (not in the environment capture: the directional light is the sun there)
   float veil = (1.0 - cov * 0.92) * (1.0 - scud * 0.7);
   float disk = smoothstep(0.999905, 0.999955, mu);
-  col += vec3(1.0, 0.80, 0.52) * disk * 110.0 * veil * (1.0 - uEnv);
+  col += mix(vec3(1.0, 0.80, 0.52) * 110.0, vec3(0.80, 0.88, 1.0) * 9.0, uNight) * disk * veil * (1.0 - uEnv);
+  // night: stars in the breaks of the cloud deck, faint moon halo
+  if (uNight > 0.0 && d.y > 0.0) {
+    vec3 sp = d * 420.0;
+    vec3 cell = floor(sp);
+    float rnd = fract(sin(dot(cell, vec3(12.9898, 78.233, 37.719))) * 43758.5453);
+    vec3 fp = fract(sp) - 0.5;
+    float star = step(0.9965, rnd) * smoothstep(0.32, 0.0, length(fp)) * (0.5 + 0.5 * sin(uTime * (1.5 + rnd * 4.0) + rnd * 40.0));
+    col += vec3(0.75, 0.82, 1.0) * star * 1.4 * uNight * (1.0 - cov) * smoothstep(0.04, 0.25, h) * (1.0 - uEnv);
+    col += uSunCol * pow(s, 40.0) * 0.35 * uNight * veil;
+  }
 
   // below the horizon: sea haze / ground bounce (mostly hidden by geometry)
   if (d.y < 0.0) {
@@ -186,6 +201,9 @@ function W6(i) {
     uHor: { value: SKY_COLORS.horizon.clone() },
     uHorAway: { value: SKY_COLORS.horizonAway.clone() },
     uSunCol: { value: SUN.color.clone() },
+    uSkyGain: { value: SKY_STYLE.gain },
+    uCover: { value: SKY_STYLE.cover },
+    uNight: { value: SKY_STYLE.night },
   };
 }
 function Hy(i) {
@@ -831,6 +849,8 @@ ${fe}`,
       lookSat: 1.22,
     },
     x = !1;
+  // per-condition grading / exposure overrides (night, storm)
+  Object.assign(g, (e.condition && e.condition.post) || {});
   try {
     x = !!i.extensions.has('EXT_color_buffer_float');
   } catch {

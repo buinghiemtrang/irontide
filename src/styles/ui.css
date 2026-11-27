@@ -1437,10 +1437,12 @@ kbd {
   text-transform: uppercase;
   color: var(--bone);
 }
-.seg {
+.seg,
+.cond-seg {
   display: flex;
 }
-.seg button {
+.seg button,
+.cond-seg button {
   flex: 1 1 0;
   min-width: 0;
   min-height: 40px;
@@ -1455,13 +1457,16 @@ kbd {
   padding: 1px 0 0;
   cursor: pointer;
 }
-.seg button:first-child {
+.seg button:first-child,
+.cond-seg button:first-child {
   margin-left: 0;
 }
-.seg button:hover {
+.seg button:hover,
+.cond-seg button:hover {
   color: var(--bone);
 }
-.seg button[aria-pressed='true'] {
+.seg button[aria-pressed='true'],
+.cond-seg button[aria-pressed='true'] {
   background: var(--bone);
   border-color: var(--bone);
   color: var(--ink);
@@ -1557,6 +1562,7 @@ kbd {
   bottom: calc(28vh + var(--sab));
   padding-left: 16px;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.5s;
   text-shadow: var(--shadow);
   max-width: calc(100vw - var(--gl) - var(--gr) - 16px);
@@ -1708,4 +1714,21 @@ kbd {
   .h-cue.urgent {
     animation: none;
   }
+}
+
+/* ---- mission conditions (title screen) ---- */
+.m-cond {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 4px 0 22px;
+}
+.m-cond-k {
+  font: 500 11px/1 var(--f-mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(232, 226, 214, 0.6);
+}
+.cond-seg button {
+  min-width: 78px;
 }
