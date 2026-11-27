@@ -33,6 +33,7 @@ import { createEmp } from './weapon/emp.js';
 import { createLoadout } from './weapon/shotgun.js';
 import { createElites } from './enemies/elites.js';
 import { createHoldout } from './game/holdout.js';
+import { createAbilities } from './ui/abilities.js';
 import { createCustomSfx } from './audio/custom-sfx.js';
 
 var SHOWCASES = {
@@ -215,6 +216,7 @@ async function boot() {
         t.loadout = createLoadout(t);
         t.elites = createElites(t);
         t.holdout = createHoldout(t);
+        t.abilities = createAbilities(t);
         t.emp = createEmp(t);
         t.sfx = createCustomSfx(t);
       } catch (h) {
@@ -296,6 +298,7 @@ async function boot() {
         u('loadout', p),
         u('elites', p),
         u('holdout', p),
+        u('abilities', p),
         u('ground', p),
         u('level', p),
         u('backdrop', p),

@@ -73,46 +73,51 @@ function createMenu(i, e) {
     <div class="m-veil"></div>
     <div class="m-bars"><i></i><i></i></div>
 
-    <section class="m-screen m-title" data-s="title" aria-label="Irontide">
-      <div class="m-title-main">
-        <div class="m-eyebrow"><span class="m-tag">B4</span><span>Port Authority Breach Unit</span><span class="m-dim">Irontide Terminal \xB7 ${clockOf(i)}</span></div>
-        <h1 class="m-word">IRONTIDE</h1>
-        <p class="m-premise">The port\u2019s security net has gone feral. Cut its three uplinks. Reach the boat.</p>
-        <div class="m-cond" role="group" aria-label="Conditions">
-          <span class="m-cond-k">Conditions</span>
-          <div class="cond-seg">${CONDITION_IDS.map((c) => `<button data-cond="${c}" aria-pressed="${c === condOf(i)}">${CONDITIONS[c].label}</button>`).join('')}</div>
+    <section class="m-screen m-title lobby" data-s="title" aria-label="Irontide">
+      <div class="lb-pattern" aria-hidden="true"></div>
+      <header class="lb-top">
+        <div class="lb-brand">${ICON.logo}<span>Irontide</span></div>
+        <div class="lb-center">
+          <span class="lb-clock">${clockOf(i)}</span>${ICON.diamondX}<span class="lb-loc">Berth 4</span>
         </div>
-        <div class="m-cond" role="group" aria-label="Mode">
-          <span class="m-cond-k">Mode</span>
-          <div class="cond-seg">${[
-            ['mission', 'Mission'],
-            ['holdout', 'Holdout'],
-          ]
-            .map(
-              ([m, label]) =>
-                `<button data-mode="${m}" aria-pressed="${m === (i.mode || 'mission')}">${label}</button>`,
-            )
-            .join('')}</div>
+        <div class="lb-right">
+          <span class="lb-badges" data-f="badge-count">${badgeText()}</span>
+          <button class="lb-gear" data-act="settings" aria-label="Settings">${ICON.gear}</button>
         </div>
-        <div class="m-cond" role="group" aria-label="Difficulty">
-          <span class="m-cond-k">Difficulty</span>
-          <div class="cond-seg">${Object.values(i.difficulties || {})
-            .map((d) => `<button data-diff="${d.id}" aria-pressed="${d.id === diffOf(i)}">${d.label}</button>`)
-            .join('')}</div>
-        </div>
-        <div class="m-badge-count" data-f="badge-count">${badgeText()}</div>
-        <div class="m-actions">
-          <button class="btn primary" data-act="deploy">Deploy</button>
-          <button class="btn" data-act="settings">Settings</button>
-          <button class="btn m-only-narrow" data-act="controls">Controls</button>
-        </div>
-        <p class="m-note">Every surface, machine and sound is generated in your browser. Nothing is downloaded.</p>
+      </header>
+      <nav class="lb-tabs" role="group" aria-label="Mode">${[
+        ['mission', 'Mission'],
+        ['holdout', 'Holdout'],
+      ]
+        .map(
+          ([m, label]) =>
+            `<button class="lb-tab" data-mode="${m}" aria-pressed="${m === (i.mode || 'mission')}">${label}</button>`,
+        )
+        .join('')}</nav>
+      <div class="lb-toggle" role="group" aria-label="Difficulty">
+        <span class="lb-toggle-k">Difficulty</span>
+        <div class="cond-seg">${Object.values(i.difficulties || {})
+          .map((d) => `<button data-diff="${d.id}" aria-pressed="${d.id === diffOf(i)}">${d.label}</button>`)
+          .join('')}</div>
       </div>
-      <aside class="m-legend" aria-label="Controls at a glance">
-        <div><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> Move</span><span><kbd>Mouse</kbd> Look</span><span><kbd>LMB</kbd> Fire</span><span><kbd>RMB</kbd> Aim</span><span><kbd>R</kbd> Reload</span></div>
-        <div><span><kbd>E</kbd> Cut relay</span><span><kbd>Space</kbd> Jump</span><span><kbd>Shift</kbd> Sprint</span><span><kbd>C</kbd> Crouch</span><span><kbd>F</kbd> Light</span><span><kbd>G</kbd> EMP</span><span><kbd>1</kbd><kbd>2</kbd> Weapon</span><span><kbd>Esc</kbd> Pause</span></div>
-        <div class="lg-touch"><em>Touch</em><span>Left thumb moves</span><span>Right thumb looks</span><span>Fire \xB7 Aim \xB7 Reload \xB7 Jump on screen</span></div>
-      </aside>
+      <div class="lb-cards" role="group" aria-label="Conditions">${CONDITION_IDS.map(
+        (c) => `<button class="lb-card c-${c}" data-cond="${c}" aria-pressed="${c === condOf(i)}">
+          <span class="lb-art" aria-hidden="true">${CONDITIONS[c].label}</span>
+          <span class="lb-ic">${ICON[c]}</span>
+          <span class="lb-state">${c === condOf(i) ? 'Selected' : 'Select'}</span>
+          <span class="lb-name">${ICON.chev}${CONDITIONS[c].label}</span>
+          <span class="lb-meta">${CONDITIONS[c].clock} \xB7 ${COND_NOTE[c]}</span>
+        </button>`,
+      ).join('')}</div>
+      <p class="lb-desc">${ICON.info}<span data-f="mode-desc">${modeDesc(i.mode)}</span></p>
+      <div class="lb-actions">
+        <button class="btn ghost" data-act="controls">Controls ${ICON.keys}</button>
+        <i class="lb-wire"></i>
+        <button class="btn primary" data-act="deploy">Deploy ${ICON.diamondX}</button>
+        <i class="lb-wire"></i>
+        <button class="btn ghost" data-act="settings">Settings ${ICON.gear}</button>
+      </div>
+      <p class="m-note">Every surface, machine and sound is generated in your browser. Nothing is downloaded.</p>
     </section>
 
     <section class="m-screen m-card" data-s="paused" aria-label="Paused">
@@ -295,6 +300,8 @@ function createMenu(i, e) {
     let b = U.target.closest('[data-mode]');
     if (!b) return;
     ((n.mode = b.dataset.mode), saveSettings(n), (i.mode = n.mode));
+    let md = s.querySelector('[data-f="mode-desc"]');
+    md && (md.textContent = modeDesc(n.mode));
     for (let x of s.querySelectorAll('[data-mode]')) x.setAttribute('aria-pressed', String(x === b));
   });
   // difficulty only rescales tuning tables: apply immediately, used on the next deploy
@@ -309,7 +316,11 @@ function createMenu(i, e) {
     let b = U.target.closest('[data-cond]');
     if (!b || b.dataset.cond === condOf(i)) return;
     ((n.cond = b.dataset.cond), saveSettings(n));
-    for (let x of s.querySelectorAll('[data-cond]')) x.setAttribute('aria-pressed', String(x === b));
+    for (let x of s.querySelectorAll('[data-cond]')) {
+      x.setAttribute('aria-pressed', String(x === b));
+      let st = x.querySelector('.lb-state');
+      st && (st.textContent = x === b ? 'Selected' : 'Select');
+    }
     let boot = document.getElementById('boot'),
       msg = document.getElementById('boot-msg');
     (boot && ((boot.hidden = !1), boot.classList.remove('done')),
@@ -448,3 +459,47 @@ function fillRecords(field, rec, fmtTime) {
     .map((b) => `<li class="${b.have ? 'on' : ''}${fresh.has(b.id) ? ' fresh' : ''}" title="${b.hint}">${b.label}</li>`)
     .join('');
 }
+
+function modeDesc(mode) {
+  return mode === 'holdout'
+    ? 'Holdout: no relays, no boat. Survive escalating waves on the quay \u2014 resupply between waves, a Warden every fifth.'
+    : 'Mission: the port\u2019s security net has gone feral. Cut its three uplink relays, then reach the boat.';
+}
+const COND_NOTE = { dawn: 'Light rain', storm: 'Heavy rain, lightning', night: 'Floodlights, flashlight' };
+// line icons, drawn with currentColor
+const svg = (vb, body) => `<svg viewBox="${vb}" aria-hidden="true" focusable="false">${body}</svg>`;
+const ICON = {
+  logo: svg(
+    '0 0 24 24',
+    '<path d="M12 3v9M8 6h8" stroke="currentColor" stroke-width="2.2"/><path d="M3 15c3 0 3-2.5 6-2.5s3 2.5 6 2.5 3-2.5 6-2.5M3 20c3 0 3-2.5 6-2.5s3 2.5 6 2.5 3-2.5 6-2.5" fill="none" stroke="currentColor" stroke-width="2"/>',
+  ),
+  diamondX: svg(
+    '0 0 24 24',
+    '<path d="M12 1.5 22.5 12 12 22.5 1.5 12z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m8.5 8.5 7 7m0-7-7 7" stroke="currentColor" stroke-width="1.8"/>',
+  ),
+  gear: svg(
+    '0 0 24 24',
+    '<path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm8.4 2.1-1.9-.4a6.6 6.6 0 0 0-.7-1.7l1.1-1.6-1.8-1.8-1.6 1.1c-.5-.3-1.1-.6-1.7-.7L13.4 3.6h-2.8l-.4 1.9c-.6.1-1.2.4-1.7.7L6.9 5.1 5.1 6.9l1.1 1.6c-.3.5-.6 1.1-.7 1.7l-1.9.4v2.8l1.9.4c.1.6.4 1.2.7 1.7l-1.1 1.6 1.8 1.8 1.6-1.1c.5.3 1.1.6 1.7.7l.4 1.9h2.8l.4-1.9c.6-.1 1.2-.4 1.7-.7l1.6 1.1 1.8-1.8-1.1-1.6c.3-.5.6-1.1.7-1.7l1.9-.4z" fill="none" stroke="currentColor" stroke-width="1.5"/>',
+  ),
+  keys: svg(
+    '0 0 24 24',
+    '<rect x="2.5" y="6.5" width="19" height="11" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6 10h1.5M10 10h1.5M14 10h1.5M7.5 14h9" stroke="currentColor" stroke-width="1.5"/>',
+  ),
+  info: svg(
+    '0 0 24 24',
+    '<path d="M12 2 22 12 12 22 2 12z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 10.5v6M12 7.5v1.2" stroke="currentColor" stroke-width="1.8"/>',
+  ),
+  chev: svg('0 0 24 24', '<path d="M6 8l6 8 6-8" fill="none" stroke="currentColor" stroke-width="2.2"/>'),
+  dawn: svg(
+    '0 0 48 48',
+    '<path d="M6 34h36M12 40h24" stroke="currentColor" stroke-width="2.4"/><path d="M14 34a10 10 0 0 1 20 0" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M24 12v6M10.5 19.5l4 4M37.5 19.5l-4 4M5 28h5M38 28h5" stroke="currentColor" stroke-width="2.4"/>',
+  ),
+  storm: svg(
+    '0 0 48 48',
+    '<path d="M13 30a8 8 0 0 1 1-15.9A11 11 0 0 1 35 16a7 7 0 0 1 0 14" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="m25 24-5 9h7l-4 9" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M14 36l-2 5M36 34l-2 5" stroke="currentColor" stroke-width="2.4"/>',
+  ),
+  night: svg(
+    '0 0 48 48',
+    '<path d="M30 8a15 15 0 1 0 10 25A13 13 0 0 1 30 8z" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M38 9v5M35.5 11.5h5M41 20v3M39.5 21.5h3" stroke="currentColor" stroke-width="2"/>',
+  ),
+};

@@ -113,17 +113,17 @@ Mỗi giai đoạn được làm trên một nhánh riêng (`phase-N`, nhánh sa
 
 ---
 
-## 🧪 Giai đoạn 9 · Giao diện kiểu Valorant
-- [x] 9.1 Bảng màu mới: nền xanh mực `#0f1923`, chữ kem `#ece8e1`, màu nhấn **cyan `#2ee6d6`** cho lựa chọn và mục tiêu; **đỏ `#ff4655` chỉ dùng cho nguy hiểm** (máu thấp, hết đạn, cảnh báo, boss)
-- [x] 9.2 Font: Bebas Neue cho tiêu đề và số lớn, Barlow / Barlow Condensed cho chữ, nhúng thẳng vào bản build (không cần mạng)
-- [x] 9.3 Nút: góc vuông, viền đôi cách 3px, rê chuột thì nền kem quét chéo + đảo màu chữ, góc khuyết nhỏ; nút chọn đang bật tô cyan
-- [x] 9.4 Menu: dấu hình thoi trước nhãn, gạch chân cho tab, thẻ tổng kết có viền màu nhấn phía trên
-- [x] 9.5 HUD: máu và đạn gom về giữa phía dưới trong khung góc cắt, máu luôn hiển thị, thanh boss màu đỏ
-- [x] 9.6 Độ tương phản HUD: mỗi thông tin nằm trên khung tối riêng, chữ có viền bóng tối; đo trên ảnh chụp ở cả 3 điều kiện, chữ chính đạt 7–15:1 (trước: 2–6:1 khi trời sáng)
+## 🧪 Giai đoạn 9 · Giao diện theo phong cách Valorant
+- [x] 9.1 Bảng màu: xanh mực + chữ kem, **màu nhấn vàng kem `#eaeeb2`** (như thanh READY của Valorant); **đỏ `#ff4655` chỉ dùng cho nguy hiểm**
+- [x] 9.2 Font: Bebas Neue cho đồng hồ và tiêu đề, Barlow (giống DIN) cho chữ và số HUD; nhúng thẳng vào bản build (không cần mạng)
+- [x] 9.3 **Lobby**: thanh trên cùng có tab hình thang chứa giờ ở giữa, tab con Mission / Holdout có gạch chân + mũi thoi, hộp độ khó, 3 thẻ điều kiện dọc (thẻ đang chọn có thanh tên vàng kem), dòng mô tả có icon, hàng nút Controls — DEPLOY — Settings nối bằng đường kẻ, nền mờ có hoa văn chéo
+- [x] 9.4 Nút: nút phụ nền xám xanh trong mờ + viền mảnh; nút chính khối tối viền đôi, chữ đậm, icon thoi, rê chuột chuyển vàng kem
+- [x] 9.5 **HUD không khung nền**: máu góc trái dưới (số lớn + thanh trắng cắt chéo + dấu "+"), đạn góc phải dưới (số / dự trữ + hình bóng súng), **thanh kỹ năng giữa dưới** (1/2 đổi súng, F đèn pin, G EMP với vạch lượt dùng), đường kẻ mảnh trang trí, chữ có quầng tối để đọc rõ trên mọi nền
+- [x] 9.6 Đo độ tương phản trên ảnh chụp (bình minh / bão / đêm): kỹ năng 13–15:1, máu 10–15:1, đạn 8–13:1, mục tiêu 6–9:1
 
 **Play test:**
 - [ ] Chữ và nút dễ đọc trên cả máy tính và điện thoại
-- [ ] Cụm HUD giữa màn hình không che tầm nhìn khi bắn
+- [ ] HUD không che tầm nhìn khi bắn
 
 ---
 
