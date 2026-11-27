@@ -1,4 +1,5 @@
-/* Tactical skin (Valorant-inspired): ink-navy canvas, bone text, signal red.
+/* Tactical skin (Valorant-inspired structure): ink-navy canvas, bone text, signal cyan.
+   Cyan = interactive / objective; red (--alarm) is reserved for danger.
    Square shapes, condensed caps, ornamental offset outlines, no gradients or soft shadows.
    Loaded after ui.css; everything here overrides it. */
 
@@ -9,10 +10,11 @@
   --bone: #ece8e1;
   --bone-dim: rgba(236, 232, 225, 0.64);
   --bone-faint: rgba(236, 232, 225, 0.24);
-  --signal: #ff4655;
-  --signal-hot: #ff6b77;
-  --signal-press: #cc3844;
-  --signal-tint: rgba(255, 70, 85, 0.2);
+  --signal: #2ee6d6;
+  --signal-hot: #7ff2e7;
+  --signal-press: #1fb3a6;
+  --signal-tint: rgba(46, 230, 214, 0.2);
+  --on-signal: #0f1923;
   --alarm: #ff4655;
   --steel: #9aa6b1;
   --line: rgba(236, 232, 225, 0.15);
@@ -87,7 +89,7 @@ html {
 .btn.primary {
   font: 400 24px/1 var(--f-display);
   letter-spacing: 0.16em;
-  color: var(--bone);
+  color: var(--on-signal);
   background: var(--signal);
   border-color: var(--signal);
   outline: 1px solid rgba(236, 232, 225, 0.55);
@@ -135,7 +137,7 @@ html {
 }
 .seg button[aria-pressed='true'],
 .cond-seg button[aria-pressed='true'] {
-  color: var(--bone);
+  color: var(--on-signal);
   background: var(--signal);
   border-color: var(--signal);
   position: relative;
@@ -151,7 +153,7 @@ html {
 .m-eyebrow .m-tag,
 .m-eyebrow b:first-child {
   background: var(--signal);
-  color: var(--bone);
+  color: var(--on-signal);
 }
 .m-title-main h1,
 .m-title h1 {
@@ -325,4 +327,94 @@ html {
   .h-ammo-n {
     font-size: 40px;
   }
+}
+
+/* ------------------------------------------------------------------ danger stays red */
+.h-warn,
+.h-cue,
+.h-ammo.low .h-ammo-n,
+.h-health.crit .h-hp-n {
+  color: var(--alarm);
+}
+.h-ammo.low .h-pips i:not(.off),
+.h-health.crit .h-hp-bar i:not(.off) {
+  background: var(--alarm);
+}
+.h-health.crit {
+  border-bottom-color: var(--alarm);
+}
+.boss-track i {
+  background: var(--alarm);
+}
+.boss-name {
+  color: var(--bone);
+}
+.m-dead .m-h,
+.m-card.m-dead {
+  border-top-color: var(--alarm);
+}
+
+/* ------------------------------------------------------------------ HUD contrast
+   The scene goes from a bright dawn sky to near-black night: every HUD read sits on
+   its own dark plate, and text/markers carry a hard dark edge. */
+.hud {
+  text-shadow:
+    0 0 2px rgba(0, 0, 0, 0.95),
+    0 1px 3px rgba(0, 0, 0, 0.8);
+}
+.h-health,
+.h-ammo {
+  background: rgba(12, 20, 28, 0.82);
+  border: 1px solid rgba(236, 232, 225, 0.14);
+  border-bottom: 2px solid rgba(236, 232, 225, 0.5);
+}
+.h-health .h-k,
+.h-wname,
+.h-emp {
+  color: rgba(236, 232, 225, 0.86);
+}
+.h-hp-bar i.off {
+  box-shadow: inset 0 0 0 1px rgba(236, 232, 225, 0.4);
+}
+.h-obj {
+  background: rgba(12, 20, 28, 0.74);
+  padding: 9px 14px 10px 12px;
+}
+.h-obj .h-k {
+  color: rgba(236, 232, 225, 0.78);
+}
+.h-compass {
+  background: linear-gradient(rgba(12, 20, 28, 0.72), rgba(12, 20, 28, 0.5));
+  padding-bottom: 4px;
+}
+.h-tape b {
+  color: var(--bone);
+}
+.h-wm,
+.h-cm {
+  filter: drop-shadow(0 0 1.5px rgba(0, 0, 0, 0.95)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
+}
+.h-emp b {
+  color: var(--signal);
+}
+.h-msg,
+.comms {
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.95);
+}
+
+/* small labels: full-strength bone, slightly bigger */
+.h-health .h-k,
+.h-obj .h-k {
+  color: var(--bone);
+  font-size: 12px;
+  font-weight: 600;
+}
+.h-compass {
+  background: linear-gradient(rgba(12, 20, 28, 0.9), rgba(12, 20, 28, 0.74));
+}
+.h-tape i {
+  background: rgba(236, 232, 225, 0.85);
+}
+.h-tape b {
+  font-weight: 600;
 }
