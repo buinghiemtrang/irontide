@@ -902,7 +902,7 @@ body {
   margin-right: -0.14em;
 }
 .t-btn.active {
-  background: rgba(255, 179, 71, 0.32);
+  background: var(--signal-tint, rgba(255, 179, 71, 0.32));
   border-color: var(--signal);
   color: var(--signal);
 }
@@ -1798,7 +1798,7 @@ kbd {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink);
-  background: #ffb347;
+  background: var(--signal);
   padding: 3px 5px 2px;
   margin-left: 6px;
   vertical-align: middle;
@@ -1824,8 +1824,8 @@ kbd {
   color: var(--bone);
 }
 .m-badges li.fresh {
-  border-color: #ffb347;
-  color: #ffb347;
+  border-color: var(--signal);
+  color: var(--signal);
   animation: badge-in 0.9s ease-out both;
 }
 @keyframes badge-in {
@@ -1882,7 +1882,7 @@ kbd {
   font: 600 12px/1 var(--f-label);
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #ff8a5c;
+  color: var(--signal);
   margin-bottom: 7px;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
 }
@@ -1894,7 +1894,7 @@ kbd {
 .boss-track i {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, #ff5a2a, #ffb347);
+  background: linear-gradient(90deg, var(--signal), var(--signal-hot));
   transform-origin: left center;
   transition: transform 0.15s linear;
 }

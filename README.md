@@ -170,6 +170,7 @@ See [ROADMAP.md](ROADMAP.md) for planned updates.
 - **Web Audio API** for sound generated as you play
 - **Vanilla JavaScript and CSS**, with no frameworks
 - **[Vite](https://vite.dev/)** to build everything into one HTML file
+- **Bebas Neue, Barlow and IBM Plex Mono**, bundled into the build so the game runs offline
 
 ---
 

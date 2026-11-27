@@ -113,5 +113,18 @@ Mỗi giai đoạn được làm trên một nhánh riêng (`phase-N`, nhánh sa
 
 ---
 
+## 🧪 Giai đoạn 9 · Giao diện kiểu Valorant
+- [x] 9.1 Bảng màu mới: nền xanh mực `#0f1923`, chữ kem `#ece8e1`, màu nhấn đỏ `#ff4655`
+- [x] 9.2 Font: Bebas Neue cho tiêu đề và số lớn, Barlow / Barlow Condensed cho chữ, nhúng thẳng vào bản build (không cần mạng)
+- [x] 9.3 Nút: góc vuông, viền đôi cách 3px, rê chuột thì nền kem quét chéo + đảo màu chữ, góc khuyết nhỏ; nút chọn đang bật tô đỏ
+- [x] 9.4 Menu: dấu hình thoi đỏ trước nhãn, gạch chân đỏ cho tab, thẻ tổng kết viền đỏ phía trên
+- [x] 9.5 HUD: máu và đạn gom về giữa phía dưới trong khung góc cắt, máu luôn hiển thị, thanh boss màu đỏ
+
+**Play test:**
+- [ ] Chữ và nút dễ đọc trên cả máy tính và điện thoại
+- [ ] Cụm HUD giữa màn hình không che tầm nhìn khi bắn
+
+---
+
 ## ⬜ Sau này
 - [ ] Màn chơi thứ 2: boong tàu container KITTIWAKE

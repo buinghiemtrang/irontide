@@ -1,3 +1,4 @@
+import './styles/fonts.css';
 import * as THREE from 'three';
 import { PlaneGeometry, Vector2, Vector3 } from 'three';
 import './world/props/structures.js';
