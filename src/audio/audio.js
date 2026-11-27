@@ -2998,6 +2998,7 @@ function createAudioEngine(i, e, t) {
   return (
     Object.assign(Re, {
       ctx: e,
+      master: w,
       resume: yr,
       play: ze,
       loop: Be,

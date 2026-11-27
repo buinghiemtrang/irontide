@@ -69,12 +69,49 @@ Mỗi giai đoạn được làm trên một nhánh riêng (`phase-N`, nhánh sa
 
 ---
 
-## 🧪 Giai đoạn 5 · Bạn play test giai đoạn 1–4
+## 🧪 Giai đoạn 5 · Hoàn thiện cảm ứng & âm thanh
+- [x] 5.1 Nút cảm ứng **LIGHT** (đèn pin) và **EMP** (lựu đạn) trên điện thoại
+- [x] 5.2 Âm thanh tổng hợp riêng cho EMP: tiếng rít sạc điện tăng dần theo ngòi nổ, tiếng nổ trầm kèm điện lách tách, có định hướng trái/phải
+- [x] 5.3 Tiếng click khi bật/tắt đèn pin
+
+> Âm thanh môi trường (sóng, mòng biển, còi tàu, tiếng vang trong kho / ngoài trời) game gốc đã có sẵn.
+
+**Play test:**
+- [ ] Nút cảm ứng mới dễ bấm, không đè lên nút khác
+- [ ] Âm thanh EMP nghe rõ, không quá to
+
+---
+
+## ⬜ Giai đoạn 6 · Shotgun & đổi súng
+- [ ] 6.1 Shotgun tầm gần: bắn chùm đạn, nạp từng viên, giật mạnh
+- [ ] 6.2 Đổi súng bằng phím `1` `2` hoặc cuộn chuột (tay cầm: `Y` giữ / D-pad)
+- [ ] 6.3 HUD hiện tên và số đạn của súng đang cầm
+
+**Play test:**
+- [ ] Shotgun mạnh ở gần, yếu ở xa
+- [ ] Đổi súng mượt, không lỗi đạn
+
+---
+
+## ⬜ Giai đoạn 7 · Kẻ địch mới & boss
+- [ ] 7.1 Hound mang khiên: chặn đạn phía trước, phải bọc sườn hoặc dùng EMP
+- [ ] 7.2 Boss "Harbormaster's Warden" xuất hiện khi cắt relay cuối, có thanh máu riêng
+
+**Play test:**
+- [ ] Khiên chặn đúng hướng
+- [ ] Boss khó nhưng công bằng
+
+---
+
+## ⬜ Giai đoạn 8 · Chế độ Holdout
+- [ ] 8.1 Chế độ mới ở màn hình chính: giữ bến thuyền qua các đợt địch tăng dần
+- [ ] 8.2 Điểm số, đợt cao nhất được lưu làm kỷ lục
+
+**Play test:**
+- [ ] Các đợt tăng độ khó hợp lý
+- [ ] Chết thì hiện điểm và đợt đạt được
 
 ---
 
 ## ⬜ Sau này
-- [ ] Vũ khí thứ 2 (shotgun) và đổi súng
-- [ ] Loại địch mới, boss khi cắt relay cuối
 - [ ] Màn chơi thứ 2: boong tàu container KITTIWAKE
-- [ ] Nút đèn pin và lựu đạn trên màn hình cảm ứng

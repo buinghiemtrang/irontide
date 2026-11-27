@@ -931,6 +931,22 @@ body {
   right: calc(108px + var(--sar));
   bottom: calc(126px + var(--sab));
 }
+.t-light,
+.t-emp {
+  width: 48px;
+  height: 48px;
+  font-size: 10px;
+}
+.t-light {
+  right: calc(186px + var(--sar));
+  bottom: calc(118px + var(--sab));
+}
+.t-emp {
+  right: calc(176px + var(--sar));
+  bottom: calc(184px + var(--sab));
+  border-color: rgba(143, 216, 255, 0.55);
+  color: #bfe9ff;
+}
 .t-interact {
   width: 68px;
   height: 68px;

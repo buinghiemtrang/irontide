@@ -223,10 +223,7 @@ export function createEmp(G) {
     });
     state.count--;
     state.cool = EMP.cooldown;
-    G.events.emit('emp:throw', { pos });
-    try {
-      G.audio.play('reload_bolt', { gain: 0.7, pitch: 1.35 });
-    } catch {}
+    G.events.emit('emp:throw', { pos, fuse: EMP.fuse });
   }
 
   function detonate(n) {
@@ -241,8 +238,7 @@ export function createEmp(G) {
       G.fx.smoke(pos, { size: 0.6, life: 1.2 });
     } catch {}
     try {
-      G.audio.play('relay_cut', { pos, gain: 1.1, pitch: 0.7 });
-      G.audio.play('explosion', { pos, gain: 0.45, pitch: 1.6 });
+      G.audio.play('explosion', { pos, gain: 0.3, pitch: 1.8 });
     } catch {}
     // shake the camera if the player is close
     const d = G.camera.position.distanceTo(pos);

@@ -29,6 +29,7 @@ import { createNightLights, trackLampProps } from './world/nightlights.js';
 import { DIFFICULTIES, applyDifficulty } from './game/difficulty.js';
 import { trackRun } from './game/records.js';
 import { createEmp } from './weapon/emp.js';
+import { createCustomSfx } from './audio/custom-sfx.js';
 
 var SHOWCASES = {
   mats: materialsModule,
@@ -207,6 +208,7 @@ async function boot() {
     if (!n)
       try {
         t.emp = createEmp(t);
+        t.sfx = createCustomSfx(t);
       } catch (h) {
         console.error('[boot] emp failed: ' + ((h && h.stack) || h));
       }
