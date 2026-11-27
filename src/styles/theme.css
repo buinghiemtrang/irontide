@@ -237,10 +237,8 @@ html {
   color: var(--bone);
 }
 .lb-brand svg {
-  width: 26px;
-  height: 26px;
-  padding: 3px;
-  border: 1.5px solid var(--bone);
+  width: 28px;
+  height: 28px;
 }
 .lb-center {
   position: absolute;

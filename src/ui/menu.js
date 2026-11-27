@@ -471,7 +471,7 @@ const svg = (vb, body) => `<svg viewBox="${vb}" aria-hidden="true" focusable="fa
 const ICON = {
   logo: svg(
     '0 0 24 24',
-    '<path d="M12 3v9M8 6h8" stroke="currentColor" stroke-width="2.2"/><path d="M3 15c3 0 3-2.5 6-2.5s3 2.5 6 2.5 3-2.5 6-2.5M3 20c3 0 3-2.5 6-2.5s3 2.5 6 2.5 3-2.5 6-2.5" fill="none" stroke="currentColor" stroke-width="2"/>',
+    '<defs><clipPath id="lgd"><path d="M12 2.5 21.5 12 12 21.5 2.5 12z"/></clipPath></defs><g clip-path="url(#lgd)"><path d="M0 13.5c2.3 0 2.6-2.3 4.9-2.3s2.6 2.3 4.9 2.3 2.6-2.3 4.9-2.3 2.6 2.3 4.9 2.3 2.6-2.3 4.4-2.3V24H0z" fill="#eaeeb2"/></g><path d="M12 2.5 21.5 12 12 21.5 2.5 12z" fill="none" stroke="currentColor" stroke-width="2"/>',
   ),
   diamondX: svg(
     '0 0 24 24',
