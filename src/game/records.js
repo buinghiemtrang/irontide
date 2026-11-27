@@ -16,6 +16,7 @@ export const BADGES = [
   { id: 'storm', label: 'Storm Chaser', hint: 'Finish in the storm', test: (r) => r.condition === 'storm' },
   { id: 'night', label: 'Night Owl', hint: 'Finish at night', test: (r) => r.condition === 'night' },
   { id: 'hard', label: 'Hardened', hint: 'Finish on Hard', test: (r) => r.difficulty === 'hard' },
+  { id: 'warden', label: 'Warden Down', hint: 'Destroy the Harbormaster\u2019s Warden', test: (r) => !!r.wardenDown },
   { id: 'surgical', label: 'Surgical', hint: 'Earn the top rating', test: (r) => r.ratingIndex === RATINGS.length - 1 },
 ];
 
@@ -42,6 +43,7 @@ export function trackRun(G) {
   const run = { hitsTaken: 0 };
   G.events.on('mission:start', (e) => {
     if (e && e.fresh) run.hitsTaken = 0;
+    run.wardenDown = false;
   });
   G.events.on('player:hit', () => {
     run.hitsTaken++;
@@ -56,7 +58,13 @@ export function recordRun(G, stats) {
   const condition = (G.condition && G.condition.id) || 'dawn';
   const difficulty = (G.difficulty && G.difficulty.id) || 'normal';
   const key = condition + ':' + difficulty;
-  const run = { ...stats, condition, difficulty, hitsTaken: (G.run && G.run.hitsTaken) || 0 };
+  const run = {
+    ...stats,
+    condition,
+    difficulty,
+    hitsTaken: (G.run && G.run.hitsTaken) || 0,
+    wardenDown: !!(G.run && G.run.wardenDown),
+  };
   const prev = data.bests[key] || null;
   const best = prev ? { ...prev } : { time: Infinity, accuracy: -1, ratingIndex: -1, clears: 0 };
   const isNew = {

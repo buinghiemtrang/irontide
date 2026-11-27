@@ -30,6 +30,7 @@ import { DIFFICULTIES, applyDifficulty } from './game/difficulty.js';
 import { trackRun } from './game/records.js';
 import { createEmp } from './weapon/emp.js';
 import { createLoadout } from './weapon/shotgun.js';
+import { createElites } from './enemies/elites.js';
 import { createCustomSfx } from './audio/custom-sfx.js';
 
 var SHOWCASES = {
@@ -209,6 +210,7 @@ async function boot() {
     if (!n)
       try {
         t.loadout = createLoadout(t);
+        t.elites = createElites(t);
         t.emp = createEmp(t);
         t.sfx = createCustomSfx(t);
       } catch (h) {

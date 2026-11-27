@@ -1863,3 +1863,37 @@ kbd {
 .h-emp.empty {
   opacity: 0.35;
 }
+
+/* ---- boss health bar ---- */
+.boss-bar {
+  position: absolute;
+  top: calc(104px + var(--sat, 0px));
+  left: 50%;
+  width: min(440px, 62vw);
+  transform: translateX(-50%);
+  pointer-events: none;
+  text-align: center;
+}
+.boss-bar[hidden] {
+  display: none;
+}
+.boss-name {
+  font: 600 12px/1 var(--f-label);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #ff8a5c;
+  margin-bottom: 7px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+}
+.boss-track {
+  height: 7px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 138, 92, 0.55);
+}
+.boss-track i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #ff5a2a, #ffb347);
+  transform-origin: left center;
+  transition: transform 0.15s linear;
+}

@@ -93,9 +93,9 @@ Mỗi giai đoạn được làm trên một nhánh riêng (`phase-N`, nhánh sa
 
 ---
 
-## ⬜ Giai đoạn 7 · Kẻ địch mới & boss
-- [ ] 7.1 Hound mang khiên: chặn đạn phía trước, phải bọc sườn hoặc dùng EMP
-- [ ] 7.2 Boss "Harbormaster's Warden" xuất hiện khi cắt relay cuối, có thanh máu riêng
+## 🧪 Giai đoạn 7 · Kẻ địch mới & boss
+- [x] 7.1 **Shield Hound**: tấm khiên chặn 90% sát thương từ phía trước (~125°), vỡ sau khoảng 170 sát thương; bọc sườn, bắn phá khiên hoặc EMP (đang tê liệt thì hạ khiên). Xuất hiện từ đợt 2, Hard nhiều hơn, Easy ít hơn
+- [x] 7.2 Boss **Harbormaster's Warden**: hound khổng lồ (to gấp 1,75 lần), 1100 máu, giáp giảm 45% sát thương, khiên lớn; xuất hiện 6 giây sau khi cắt relay cuối và săn bạn tới thuyền. Có thanh máu riêng và huy hiệu **Warden Down** khi hạ được
 
 **Play test:**
 - [ ] Khiên chặn đúng hướng
