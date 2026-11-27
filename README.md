@@ -39,12 +39,18 @@ You are the **Breacher**. Control's orders are simple:
 | | |
 |---|---|
 | 🎨 **Generated in the browser** | Every surface, machine and sound is created when the game runs. It downloads no textures, models or audio files. |
-| 📦 **One HTML file** | The whole game is in `index.html`. Open it and play, with no build step, server or install. |
+| 📦 **One HTML file** | The build packs the whole game into one `index.html` that runs with no server or install. |
+| 🌗 **Three conditions** | Play at **Dawn**, in a **Storm** with heavy rain and lightning, or at **Night** under floodlights with a weapon flashlight. |
 | 🌅 **Atmospheric harbor** | A custom sky, a moving sea, shadows, post-processing and seagulls overhead. The terminal is full of cranes, containers, warning signs and a docked ship. |
-| 🤖 **Escalating AI** | Enemies patrol, pursue and come in waves that grow stronger with every relay you cut. |
+| 🤖 **Escalating AI** | Enemies patrol, pursue and come in waves that grow stronger with every relay you cut. Later waves bring **Shield Hounds** that block shots from the front. |
+| 👹 **The Warden** | Cut the last relay and the Harbormaster sends a giant armoured Hound after you. |
 | 🎮 **Plays on anything** | Supports keyboard and mouse, touch screens and gamepads. |
 | ⚙️ **Auto quality** | The game picks a graphics level for your device, and you can change it at any time. |
-| 🏅 **Mission debrief** | Each run ends with a rating plus your time, accuracy, machines destroyed and retries. |
+| 🔫 **Two weapons** | The PAC-9 rifle and the M-12 Breakwater pump shotgun. Switch with `1` / `2` or the mouse wheel. |
+| ⚡ **EMP grenades** | Two per mission. The pulse damages and stuns every machine in range, and cover blocks it. |
+| 🛡️ **Holdout mode** | No relays, no boat: survive escalating waves on the quay, with resupply between waves and a Warden every fifth wave. |
+| 🎚️ **Difficulty** | Easy, Normal or Hard changes enemy health, damage, fire rate and wave size. |
+| 🏅 **Records & badges** | Each run ends with a rating, your personal best for that condition and difficulty, and 10 badges to unlock. |
 
 ---
 
@@ -65,6 +71,9 @@ You are the **Breacher**. Control's orders are simple:
 | Jump | `Space` |
 | Sprint | `Shift` |
 | Crouch | `C` |
+| Flashlight | `F` |
+| EMP grenade | `G` |
+| Rifle / Shotgun | `1` / `2`, wheel |
 | Pause | `Esc` |
 
 </td><td>
@@ -79,6 +88,9 @@ You are the **Breacher**. Control's orders are simple:
 | Reload | `X` |
 | Cut relay | `Y` |
 | Sprint | `L3` |
+| Flashlight | D-pad up |
+| EMP grenade | `LB` |
+| Switch weapon | D-pad ← → |
 | Pause | `Start` |
 
 </td><td>
@@ -102,13 +114,14 @@ You are the **Breacher**. Control's orders are simple:
 
 **Play online:** open **[buinghiemtrang.github.io/irontide](https://buinghiemtrang.github.io/irontide/)**.
 
-**Play locally:**
+**Run locally (development):**
 
 ```bash
 git clone https://github.com/buinghiemtrang/irontide.git
 cd irontide
-# Open index.html in a modern browser, or serve it locally:
-python3 -m http.server 8000   # then visit http://localhost:8000
+npm install
+npm run dev        # dev server with hot reload
+npm run build      # builds a single self-contained dist/index.html
 ```
 
 Works best in a recent version of **Chrome, Edge, Firefox or Safari** with WebGL enabled.
@@ -127,12 +140,37 @@ Settings are saved in your browser between sessions.
 
 ---
 
+## 🗂️ Project Structure
+
+```
+src/
+├── main.js              # boot sequence + main loop
+├── core/                # config, events, RNG, math, geometry helpers
+├── render/              # renderer, post-processing, sky, materials
+├── world/               # level layout, physics, backdrop, ground, props
+├── fx/                  # tracers, smoke, sparks, explosions, rain
+├── audio/               # procedural sound synthesis + mixer
+├── player/              # input (keyboard, mouse, touch, gamepad) + movement
+├── combat/              # hit detection and damage
+├── weapon/              # first-person rifle
+├── enemies/             # Gulls, Hounds and their AI
+├── ui/                  # HUD, menus, settings
+├── game/                # mission flow, objectives, radio
+└── styles/ui.css
+```
+
+See [ROADMAP.md](ROADMAP.md) for planned updates.
+
+---
+
 ## 🧱 Built With
 
 - **[Three.js](https://threejs.org/)** for WebGL rendering
 - **Custom GLSL shaders** for the sky, sea, shadows and post-processing
 - **Web Audio API** for sound generated as you play
 - **Vanilla JavaScript and CSS**, with no frameworks
+- **[Vite](https://vite.dev/)** to build everything into one HTML file
+- **Bebas Neue, Barlow and IBM Plex Mono**, bundled into the build so the game runs offline
 
 ---
 
