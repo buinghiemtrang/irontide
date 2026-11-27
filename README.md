@@ -11,9 +11,6 @@ It runs in your browser from a single HTML file, with nothing to install.
 
 ### [▶&nbsp; PLAY IN YOUR BROWSER](https://buinghiemtrang.github.io/irontide/)
 
-![Three.js](https://img.shields.io/badge/Three.js-WebGL-0f1923?style=flat-square&logo=three.js&logoColor=eaeeb2)
-![Single file](https://img.shields.io/badge/one%20HTML%20file-no%20install-0f1923?style=flat-square&labelColor=0f1923&color=2a3540)
-![Platforms](https://img.shields.io/badge/desktop%20·%20mobile%20·%20gamepad-0f1923?style=flat-square&color=2a3540)
 
 <br>
 
