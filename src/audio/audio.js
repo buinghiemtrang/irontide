@@ -2610,12 +2610,16 @@ function createAudioEngine(i, e, t) {
         }
       });
   };
-  (ln('weapon:fire', () => {
-    ((I = (I + 1) & 3), ze('rifle_shot', { variant: I, gain: 1, jitter: 0.012 }));
+  (ln('weapon:fire', (ev) => {
+    let sg = ev && ev.shotgun;
+    ((I = (I + 1) & 3), ze('rifle_shot', { variant: I, gain: sg ? 1.3 : 1, pitch: sg ? 0.66 : 1, jitter: 0.012 }));
     let te = e.currentTime;
     ((le = te), te - R > 0.28 && fo(1), (J = Math.min(J, 0.55)), Y > 0.3 && (Y = Math.min(1, Y + 0.015)));
   }),
     ln('weapon:dry', () => ze('rifle_dry', { gain: 0.9 })),
+    ln('weapon:pump', (ev) => ze('reload_bolt', { gain: 0.8, pitch: ev && ev.phase === 'back' ? 0.82 : 1.05 })),
+    ln('weapon:shell', () => ze('reload_magin', { gain: 0.55, pitch: 1.55 })),
+    ln('weapon:swap', () => ze('jump', { gain: 0.45, pitch: 1.5 })),
     ln('weapon:reload', (te) => {
       te.phase === 'magout'
         ? ze('reload_magout')

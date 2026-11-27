@@ -13,6 +13,10 @@ var KEY_BINDINGS = {
   KeyE: 'interact',
   KeyF: 'flashlight',
   KeyG: 'grenade',
+  Digit1: 'slot1',
+  Digit2: 'slot2',
+  Numpad1: 'slot1',
+  Numpad2: 'slot2',
   KeyV: 'melee',
   Escape: 'pause',
   KeyP: 'pause',
@@ -219,7 +223,7 @@ function createInput(i) {
     let P = document.createElement('div');
     ((P.className = 'touch'),
       (P.innerHTML =
-        '<div class="t-stick"><i class="t-ring"></i><i class="t-nub"></i></div><button class="t-btn t-fire" data-a="fire" aria-label="Fire"><span>FIRE</span></button><button class="t-btn t-ads" data-a="ads" aria-label="Aim"><span>AIM</span></button><button class="t-btn t-reload" data-a="reload" aria-label="Reload"><span>RLD</span></button><button class="t-btn t-jump" data-a="jump" aria-label="Jump"><span>JUMP</span></button><button class="t-btn t-interact" data-a="interact" aria-label="Interact"><span>USE</span></button><button class="t-btn t-pause" data-a="pause" aria-label="Pause"><span>II</span></button><button class="t-btn t-light" data-a="flashlight" aria-label="Flashlight"><span>LIGHT</span></button><button class="t-btn t-emp" data-a="grenade" aria-label="EMP grenade"><span>EMP</span></button>'),
+        '<div class="t-stick"><i class="t-ring"></i><i class="t-nub"></i></div><button class="t-btn t-fire" data-a="fire" aria-label="Fire"><span>FIRE</span></button><button class="t-btn t-ads" data-a="ads" aria-label="Aim"><span>AIM</span></button><button class="t-btn t-reload" data-a="reload" aria-label="Reload"><span>RLD</span></button><button class="t-btn t-jump" data-a="jump" aria-label="Jump"><span>JUMP</span></button><button class="t-btn t-interact" data-a="interact" aria-label="Interact"><span>USE</span></button><button class="t-btn t-pause" data-a="pause" aria-label="Pause"><span>II</span></button><button class="t-btn t-light" data-a="flashlight" aria-label="Flashlight"><span>LIGHT</span></button><button class="t-btn t-emp" data-a="grenade" aria-label="EMP grenade"><span>EMP</span></button><button class="t-btn t-swap" data-a="swap" aria-label="Switch weapon"><span>SWAP</span></button>'),
       t.appendChild(P));
     let V = (L) => P.querySelector(L),
       Y = {
@@ -235,6 +239,7 @@ function createInput(i) {
           pause: V('.t-pause'),
           flashlight: V('.t-light'),
           grenade: V('.t-emp'),
+          swap: V('.t-swap'),
         },
       };
     for (let L in Y.btn) {
@@ -354,6 +359,8 @@ function createInput(i) {
       11: 'melee',
       12: 'flashlight',
       4: 'grenade',
+      14: 'swap',
+      15: 'swap',
     },
     ne = typeof navigator < 'u' && !!navigator.getGamepads,
     re = 0,

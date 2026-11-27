@@ -82,10 +82,10 @@ Mỗi giai đoạn được làm trên một nhánh riêng (`phase-N`, nhánh sa
 
 ---
 
-## ⬜ Giai đoạn 6 · Shotgun & đổi súng
-- [ ] 6.1 Shotgun tầm gần: bắn chùm đạn, nạp từng viên, giật mạnh
-- [ ] 6.2 Đổi súng bằng phím `1` `2` hoặc cuộn chuột (tay cầm: `Y` giữ / D-pad)
-- [ ] 6.3 HUD hiện tên và số đạn của súng đang cầm
+## 🧪 Giai đoạn 6 · Shotgun & đổi súng
+- [x] 6.1 Shotgun **M-12 Breakwater**: 8 viên mỗi phát, tầm 40 m, ống 6 viên + 36 dự trữ, kéo pump sau mỗi phát (văng vỏ đạn), nạp từng viên và bắn được giữa chừng, giật mạnh, chớp lửa đầu nòng riêng, tiếng nổ trầm hơn rifle
+- [x] 6.2 Đổi súng bằng phím `1` `2` hoặc cuộn chuột (tay cầm: D-pad trái/phải, cảm ứng: nút SWAP), có động tác hạ/nâng súng
+- [x] 6.3 HUD hiện tên, số đạn và tâm ngắm rộng hơn theo súng đang cầm
 
 **Play test:**
 - [ ] Shotgun mạnh ở gần, yếu ở xa

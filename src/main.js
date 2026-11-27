@@ -29,6 +29,7 @@ import { createNightLights, trackLampProps } from './world/nightlights.js';
 import { DIFFICULTIES, applyDifficulty } from './game/difficulty.js';
 import { trackRun } from './game/records.js';
 import { createEmp } from './weapon/emp.js';
+import { createLoadout } from './weapon/shotgun.js';
 import { createCustomSfx } from './audio/custom-sfx.js';
 
 var SHOWCASES = {
@@ -207,6 +208,7 @@ async function boot() {
     n || (t.nightLights = createNightLights(t));
     if (!n)
       try {
+        t.loadout = createLoadout(t);
         t.emp = createEmp(t);
         t.sfx = createCustomSfx(t);
       } catch (h) {
@@ -281,7 +283,14 @@ async function boot() {
         } catch {}
       }
       (t.game.state !== 'paused' &&
-        (u('fx', p), u('nightLights', p), u('emp', p), u('ground', p), u('level', p), u('backdrop', p), u('mats', p)),
+        (u('fx', p),
+        u('nightLights', p),
+        u('emp', p),
+        u('loadout', p),
+        u('ground', p),
+        u('level', p),
+        u('backdrop', p),
+        u('mats', p)),
         u('audio', p),
         u('hud', p),
         s && (t.camera.position.copy(s.pos), t.camera.lookAt(s.look)),
