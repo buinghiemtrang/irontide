@@ -45,6 +45,7 @@ You are the **Breacher**. Control's orders are simple:
 | 🤖 **Escalating AI** | Enemies patrol, pursue and come in waves that grow stronger with every relay you cut. |
 | 🎮 **Plays on anything** | Supports keyboard and mouse, touch screens and gamepads. |
 | ⚙️ **Auto quality** | The game picks a graphics level for your device, and you can change it at any time. |
+| ⚡ **EMP grenades** | Two per mission. The pulse damages and stuns every machine in range, and cover blocks it. |
 | 🎚️ **Difficulty** | Easy, Normal or Hard changes enemy health, damage, fire rate and wave size. |
 | 🏅 **Records & badges** | Each run ends with a rating, your personal best for that condition and difficulty, and 8 badges to unlock. |
 
@@ -68,6 +69,7 @@ You are the **Breacher**. Control's orders are simple:
 | Sprint | `Shift` |
 | Crouch | `C` |
 | Flashlight | `F` |
+| EMP grenade | `G` |
 | Pause | `Esc` |
 
 </td><td>
@@ -83,6 +85,7 @@ You are the **Breacher**. Control's orders are simple:
 | Cut relay | `Y` |
 | Sprint | `L3` |
 | Flashlight | D-pad up |
+| EMP grenade | `LB` |
 | Pause | `Start` |
 
 </td><td>

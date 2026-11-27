@@ -28,6 +28,7 @@ import { loadSettings } from './ui/menu.js';
 import { createNightLights, trackLampProps } from './world/nightlights.js';
 import { DIFFICULTIES, applyDifficulty } from './game/difficulty.js';
 import { trackRun } from './game/records.js';
+import { createEmp } from './weapon/emp.js';
 
 var SHOWCASES = {
   mats: materialsModule,
@@ -203,6 +204,12 @@ async function boot() {
   await setBootProgress('Waiting for first light', 0.92);
   try {
     n || (t.nightLights = createNightLights(t));
+    if (!n)
+      try {
+        t.emp = createEmp(t);
+      } catch (h) {
+        console.error('[boot] emp failed: ' + ((h && h.stack) || h));
+      }
     await t.render.onLevelReady();
   } catch (h) {
     console.error('[boot] render.onLevelReady failed: ' + ((h && h.stack) || h));
@@ -272,7 +279,7 @@ async function boot() {
         } catch {}
       }
       (t.game.state !== 'paused' &&
-        (u('fx', p), u('nightLights', p), u('ground', p), u('level', p), u('backdrop', p), u('mats', p)),
+        (u('fx', p), u('nightLights', p), u('emp', p), u('ground', p), u('level', p), u('backdrop', p), u('mats', p)),
         u('audio', p),
         u('hud', p),
         s && (t.camera.position.copy(s.pos), t.camera.lookAt(s.look)),

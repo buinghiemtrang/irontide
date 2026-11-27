@@ -58,10 +58,10 @@ Mỗi giai đoạn được làm trên một nhánh riêng (`phase-N`, nhánh sa
 
 ---
 
-## ⬜ Giai đoạn 4 · Lựu đạn EMP
-- [ ] 4.1 Ném lựu đạn EMP (phím `G`), có quỹ đạo và nảy
-- [ ] 4.2 Nổ EMP: sóng điện xanh, robot tê liệt vài giây
-- [ ] 4.3 Giới hạn số lựu đạn, hiện trên HUD
+## 🧪 Giai đoạn 4 · Lựu đạn EMP
+- [x] 4.1 Ném lựu đạn EMP (phím `G`, tay cầm: LB), bay theo quỹ đạo, nảy trên tường và sàn, đèn nhấp nháy nhanh dần
+- [x] 4.2 Nổ sau 1,6 giây: vòm xung điện xanh, vòng sóng trên mặt đất, chớp sáng; robot trong bán kính 9 m mất máu và tê liệt tới 4 giây (gull rơi thấp, hound đứng khựng, tóe điện); vật cản chắn được xung
+- [x] 4.3 2 quả mỗi nhiệm vụ, hiện số còn lại phía trên ô đạn
 
 **Play test:**
 - [ ] Ném trúng chỗ mình nhắm
@@ -69,7 +69,7 @@ Mỗi giai đoạn được làm trên một nhánh riêng (`phase-N`, nhánh sa
 
 ---
 
-## ⬜ Giai đoạn 5 · Bạn play test giai đoạn 1–4
+## 🧪 Giai đoạn 5 · Bạn play test giai đoạn 1–4
 
 ---
 
@@ -77,4 +77,4 @@ Mỗi giai đoạn được làm trên một nhánh riêng (`phase-N`, nhánh sa
 - [ ] Vũ khí thứ 2 (shotgun) và đổi súng
 - [ ] Loại địch mới, boss khi cắt relay cuối
 - [ ] Màn chơi thứ 2: boong tàu container KITTIWAKE
-- [ ] Nút đèn pin trên màn hình cảm ứng
+- [ ] Nút đèn pin và lựu đạn trên màn hình cảm ứng

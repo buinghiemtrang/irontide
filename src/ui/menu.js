@@ -47,6 +47,7 @@ var $C = `
     <div><dt>Crouch</dt><dd><kbd>C</kbd> or <kbd>Ctrl</kbd></dd></div>
     <div><dt>Melee</dt><dd><kbd>V</kbd></dd></div>
     <div><dt>Flashlight</dt><dd><kbd>F</kbd></dd></div>
+    <div><dt>EMP grenade</dt><dd><kbd>G</kbd></dd></div>
     <div><dt>Pause</dt><dd><kbd>Esc</kbd> or <kbd>P</kbd></dd></div>
   </dl>`;
 var ZC = `
@@ -95,7 +96,7 @@ function createMenu(i, e) {
       </div>
       <aside class="m-legend" aria-label="Controls at a glance">
         <div><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> Move</span><span><kbd>Mouse</kbd> Look</span><span><kbd>LMB</kbd> Fire</span><span><kbd>RMB</kbd> Aim</span><span><kbd>R</kbd> Reload</span></div>
-        <div><span><kbd>E</kbd> Cut relay</span><span><kbd>Space</kbd> Jump</span><span><kbd>Shift</kbd> Sprint</span><span><kbd>C</kbd> Crouch</span><span><kbd>F</kbd> Light</span><span><kbd>Esc</kbd> Pause</span></div>
+        <div><span><kbd>E</kbd> Cut relay</span><span><kbd>Space</kbd> Jump</span><span><kbd>Shift</kbd> Sprint</span><span><kbd>C</kbd> Crouch</span><span><kbd>F</kbd> Light</span><span><kbd>G</kbd> EMP</span><span><kbd>Esc</kbd> Pause</span></div>
         <div class="lg-touch"><em>Touch</em><span>Left thumb moves</span><span>Right thumb looks</span><span>Fire \xB7 Aim \xB7 Reload \xB7 Jump on screen</span></div>
       </aside>
     </section>
@@ -157,7 +158,7 @@ function createMenu(i, e) {
         <p class="panel-note">If the browser will not capture the mouse, hold a mouse button and drag to look (left also fires, right also aims). Arrow keys or <kbd>I</kbd><kbd>J</kbd><kbd>K</kbd><kbd>L</kbd> turn, <kbd>Enter</kbd> fires.</p>
         <h3>Touch</h3>${ZC}
         <h3>Gamepad</h3>
-        <p class="panel-note">Sticks move and look \xB7 RT fire \xB7 LT aim \xB7 A jump \xB7 B crouch \xB7 X reload \xB7 Y cut relay \xB7 D-pad up flashlight \xB7 L3 sprint \xB7 Start pause.</p>
+        <p class="panel-note">Sticks move and look \xB7 RT fire \xB7 LT aim \xB7 A jump \xB7 B crouch \xB7 X reload \xB7 Y cut relay \xB7 D-pad up flashlight \xB7 LB EMP grenade \xB7 L3 sprint \xB7 Start pause.</p>
       </div>
     </div>
 
