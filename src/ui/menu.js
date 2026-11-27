@@ -40,7 +40,7 @@ var $C = `
     <div><dt>Move</dt><dd><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></dd></div>
     <div><dt>Look</dt><dd>Mouse</dd></div>
     <div><dt>Fire</dt><dd>Left button</dd></div>
-    <div><dt>Aim</dt><dd>Right button</dd></div>
+    <div><dt>Aim</dt><dd>Right click (toggle)</dd></div>
     <div><dt>Reload</dt><dd><kbd>R</kbd></dd></div>
     <div><dt>Cut relay</dt><dd>Hold <kbd>E</kbd></dd></div>
     <div><dt>Jump</dt><dd><kbd>Space</kbd></dd></div>
