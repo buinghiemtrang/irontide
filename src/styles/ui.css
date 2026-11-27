@@ -1732,3 +1732,85 @@ kbd {
 .cond-seg button {
   min-width: 78px;
 }
+
+.m-badge-count {
+  margin: 2px 0 22px 106px;
+  font: 500 11px/1 var(--f-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 226, 214, 0.5);
+}
+/* ---- debrief: personal best + badges ---- */
+.m-best {
+  margin-top: 14px;
+}
+.m-best .m-k {
+  margin-bottom: 8px;
+}
+.m-stats.small {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.m-stats.small > div {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 8px 0 7px;
+  border: 0;
+}
+.m-stats.small dt {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+}
+.m-stats.small dd {
+  font-size: 13px;
+  white-space: nowrap;
+}
+.m-new {
+  font: 600 10px/1 var(--f-mono);
+  font-style: normal;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: #ffb347;
+  padding: 3px 5px 2px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.m-badges {
+  list-style: none;
+  margin: 12px 0 14px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.m-badges li {
+  font: 500 10px/1 var(--f-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 6px 4px;
+  border: 1px solid rgba(232, 228, 218, 0.18);
+  color: rgba(232, 226, 214, 0.35);
+}
+.m-badges li.on {
+  border-color: rgba(232, 228, 218, 0.55);
+  color: var(--bone);
+}
+.m-badges li.fresh {
+  border-color: #ffb347;
+  color: #ffb347;
+  animation: badge-in 0.9s ease-out both;
+}
+@keyframes badge-in {
+  0% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

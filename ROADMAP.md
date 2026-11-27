@@ -47,10 +47,10 @@ Mỗi giai đoạn được làm trên một nhánh riêng (`phase-N`, nhánh sa
 
 ---
 
-## ⬜ Giai đoạn 3 · Độ khó, kỷ lục & thử thách
-- [ ] 3.1 Chọn độ khó: Easy / Normal / Hard
-- [ ] 3.2 Lưu kỷ lục theo từng điều kiện và độ khó: thời gian, độ chính xác, rating
-- [ ] 3.3 Thử thách và huy hiệu ("dưới 5 phút", "không bị trúng đạn"…)
+## 🧪 Giai đoạn 3 · Độ khó, kỷ lục & thử thách
+- [x] 3.1 Chọn độ khó ở màn hình chính: Easy / Normal / Hard (máu, sát thương, nhịp bắn của địch, số địch tấn công cùng lúc, quy mô các đợt)
+- [x] 3.2 Lưu kỷ lục theo từng điều kiện và độ khó: thời gian, độ chính xác, rating, số lần hoàn thành (hiện chữ NEW khi phá kỷ lục)
+- [x] 3.3 8 huy hiệu: Breacher, Rapid Response (< 5 phút), Untouched (không trúng đạn), Marksman (≥ 60% chính xác), Storm Chaser, Night Owl, Hardened, Surgical
 
 **Play test:**
 - [ ] Độ khó khác biệt rõ

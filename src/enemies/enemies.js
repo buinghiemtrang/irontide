@@ -2376,4 +2376,4 @@ async function enemiesShowcase(i) {
   };
 }
 
-export { createEnemies, enemiesModule };
+export { ENEMY_TUNE, createEnemies, enemiesModule };

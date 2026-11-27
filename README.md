@@ -45,7 +45,8 @@ You are the **Breacher**. Control's orders are simple:
 | 🤖 **Escalating AI** | Enemies patrol, pursue and come in waves that grow stronger with every relay you cut. |
 | 🎮 **Plays on anything** | Supports keyboard and mouse, touch screens and gamepads. |
 | ⚙️ **Auto quality** | The game picks a graphics level for your device, and you can change it at any time. |
-| 🏅 **Mission debrief** | Each run ends with a rating plus your time, accuracy, machines destroyed and retries. |
+| 🎚️ **Difficulty** | Easy, Normal or Hard changes enemy health, damage, fire rate and wave size. |
+| 🏅 **Records & badges** | Each run ends with a rating, your personal best for that condition and difficulty, and 8 badges to unlock. |
 
 ---
 

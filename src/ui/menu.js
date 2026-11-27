@@ -1,8 +1,17 @@
 import { PLAYER_BODY, QUALITY_PRESETS } from '../core/config.js';
 import { CONDITIONS, CONDITION_IDS } from '../core/conditions.js';
+import { badgeProgress } from '../game/records.js';
 
 var SETTINGS_KEY = 'irontide.settings.v1';
-var DEFAULT_SETTINGS = { quality: 'auto', sens: 1, invertY: !1, volume: 0.8, fov: PLAYER_BODY.fov, cond: 'dawn' };
+var DEFAULT_SETTINGS = {
+  quality: 'auto',
+  sens: 1,
+  invertY: !1,
+  volume: 0.8,
+  fov: PLAYER_BODY.fov,
+  cond: 'dawn',
+  diff: 'normal',
+};
 var QUALITY_LEVELS = ['low', 'medium', 'high', 'ultra'];
 function loadSettings() {
   let i = { ...DEFAULT_SETTINGS };
@@ -15,7 +24,8 @@ function loadSettings() {
       (i.invertY = !!e.invertY),
       Number.isFinite(e.volume) && (i.volume = Math.min(1, Math.max(0, e.volume))),
       Number.isFinite(e.fov) && (i.fov = Math.min(95, Math.max(60, e.fov))),
-      CONDITION_IDS.includes(e.cond) && (i.cond = e.cond));
+      CONDITION_IDS.includes(e.cond) && (i.cond = e.cond),
+      ['easy', 'normal', 'hard'].includes(e.diff) && (i.diff = e.diff));
   } catch {}
   return i;
 }
@@ -69,6 +79,13 @@ function createMenu(i, e) {
           <span class="m-cond-k">Conditions</span>
           <div class="cond-seg">${CONDITION_IDS.map((c) => `<button data-cond="${c}" aria-pressed="${c === condOf(i)}">${CONDITIONS[c].label}</button>`).join('')}</div>
         </div>
+        <div class="m-cond" role="group" aria-label="Difficulty">
+          <span class="m-cond-k">Difficulty</span>
+          <div class="cond-seg">${Object.values(i.difficulties || {})
+            .map((d) => `<button data-diff="${d.id}" aria-pressed="${d.id === diffOf(i)}">${d.label}</button>`)
+            .join('')}</div>
+        </div>
+        <div class="m-badge-count" data-f="badge-count">${badgeText()}</div>
         <div class="m-actions">
           <button class="btn primary" data-act="deploy">Deploy</button>
           <button class="btn" data-act="settings">Settings</button>
@@ -112,6 +129,8 @@ function createMenu(i, e) {
         <div><dt>Machines destroyed</dt><dd data-f="kills">0</dd></div>
         <div><dt>Retries</dt><dd data-f="retries">0</dd></div>
       </dl>
+      <div class="m-best" data-f="best"></div>
+      <ul class="m-badges" data-f="badges"></ul>
       <div class="m-actions col"><button class="btn primary" data-act="redeploy">Redeploy</button></div>
     </section>
 
@@ -256,6 +275,13 @@ function createMenu(i, e) {
         U.focus({ preventScroll: !0 });
       } catch {}
   }
+  // difficulty only rescales tuning tables: apply immediately, used on the next deploy
+  s.addEventListener('click', (U) => {
+    let b = U.target.closest('[data-diff]');
+    if (!b) return;
+    ((n.diff = b.dataset.diff), saveSettings(n), i.setDifficulty && i.setDifficulty(n.diff));
+    for (let x of s.querySelectorAll('[data-diff]')) x.setAttribute('aria-pressed', String(x === b));
+  });
   // conditions change the whole scene's lighting, which is built at boot: save and reload
   s.addEventListener('click', (U) => {
     let b = U.target.closest('[data-cond]');
@@ -347,12 +373,14 @@ function createMenu(i, e) {
       setDead({ time: U, relays: T, total: D }) {
         ((c('dead-time').textContent = O(U)), (c('dead-relays').textContent = `${T}/${D}`));
       },
-      setDebrief({ time: U, accuracy: T, kills: D, retries: C, rating: G }) {
+      setDebrief({ time: U, accuracy: T, kills: D, retries: C, rating: G, rec: R }) {
         ((c('time').textContent = O(U)),
           (c('acc').textContent = T == null ? '\u2014' : Math.round(T * 100) + '%'),
           (c('kills').textContent = String(D)),
           (c('retries').textContent = String(C)),
-          (c('rating').textContent = G));
+          (c('rating').textContent = G),
+          fillRecords(c, R, O),
+          (c('badge-count').textContent = badgeText()));
       },
       applySettings: v,
     };
@@ -366,4 +394,35 @@ function condOf(G) {
 }
 function clockOf(G) {
   return (G.condition && G.condition.clock) || '05:42';
+}
+function diffOf(G) {
+  return (G.difficulty && G.difficulty.id) || 'normal';
+}
+function badgeText() {
+  let p = badgeProgress();
+  return `Badges ${p.have}/${p.total}`;
+}
+// personal bests + badges on the debrief card
+function fillRecords(field, rec, fmtTime) {
+  let best = field('best'),
+    list = field('badges');
+  if (!best || !list) return;
+  if (!rec) {
+    ((best.innerHTML = ''), (list.innerHTML = ''));
+    return;
+  }
+  let tag = (on) => (on ? ' <em class="m-new">New</em>' : ''),
+    acc = rec.best.accuracy >= 0 ? Math.round(rec.best.accuracy * 100) + '%' : '\u2014',
+    cond = rec.key.condition[0].toUpperCase() + rec.key.condition.slice(1),
+    diff = rec.key.difficulty[0].toUpperCase() + rec.key.difficulty.slice(1);
+  best.innerHTML =
+    `<div class="m-k">Personal best \xB7 ${cond} \xB7 ${diff}</div>` +
+    `<dl class="m-stats small"><div><dt>Time</dt><dd>${fmtTime(rec.best.time)}${tag(rec.isNew.time && !rec.first)}</dd></div>` +
+    `<div><dt>Accuracy</dt><dd>${acc}${tag(rec.isNew.accuracy && !rec.first)}</dd></div>` +
+    `<div><dt>Rating</dt><dd>${rec.best.rating}${tag(rec.isNew.rating && !rec.first)}</dd></div>` +
+    `<div><dt>Clears</dt><dd>${rec.best.clears}</dd></div></dl>`;
+  let fresh = new Set(rec.unlocked.map((b) => b.id));
+  list.innerHTML = rec.badges
+    .map((b) => `<li class="${b.have ? 'on' : ''}${fresh.has(b.id) ? ' fresh' : ''}" title="${b.hint}">${b.label}</li>`)
+    .join('');
 }

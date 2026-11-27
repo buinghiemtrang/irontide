@@ -26,6 +26,8 @@ import { createMission } from './game/mission.js';
 import { applyCondition, pickCondition } from './core/conditions.js';
 import { loadSettings } from './ui/menu.js';
 import { createNightLights, trackLampProps } from './world/nightlights.js';
+import { DIFFICULTIES, applyDifficulty } from './game/difficulty.js';
+import { trackRun } from './game/records.js';
 
 var SHOWCASES = {
   mats: materialsModule,
@@ -88,6 +90,10 @@ async function boot() {
   };
   window.__G = t;
   applyCondition(t, pickCondition(i, loadSettings()));
+  t.difficulties = DIFFICULTIES;
+  t.setDifficulty = (id) => applyDifficulty(t, id);
+  applyDifficulty(t, i.diff || loadSettings().diff);
+  trackRun(t);
   let n = i.show && SHOWCASES[i.show] ? i.show : null;
   t.showcase = n;
   let s = null;

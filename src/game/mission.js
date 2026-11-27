@@ -1,3 +1,4 @@
+import { recordRun } from './records.js';
 import { Vector3 } from 'three';
 import { clamp, damp, saturate, smoothstep } from '../core/util.js';
 import { createMenu } from '../ui/menu.js';
@@ -221,6 +222,7 @@ function createMission(i) {
   function U({ skipIntro: P = !1, quick: V = !1, keepRetries: Y = !1 } = {}) {
     if (
       (Y || (c.retries = 0),
+      i.events.emit('mission:start', { fresh: !Y }),
       l.show('none'),
       l.locationCard(!1),
       a(i.audio, 'setPaused', !1),
@@ -517,7 +519,21 @@ function createMission(i) {
       V = P.shots > 0 ? clamp(P.hits / P.shots, 0, 1) : null,
       Y = (c.time < 270 ? 2 : c.time < 400 ? 1 : 0) + (V >= 0.5 ? 2 : V >= 0.3 ? 1 : 0) + (c.retries === 0 ? 1 : 0),
       L = ['Messy', 'Loud', 'Steady', 'Clean', 'Sharp', 'Surgical'][Y];
-    (l.setDebrief({ time: c.time, accuracy: V, kills: P.kills || 0, retries: c.retries, rating: L }), M('complete'));
+    let rec = null;
+    try {
+      rec = recordRun(i, {
+        time: c.time,
+        accuracy: V,
+        kills: P.kills || 0,
+        retries: c.retries,
+        ratingIndex: Y,
+        rating: L,
+      });
+    } catch (err) {
+      console.error('[records] ' + err);
+    }
+    (l.setDebrief({ time: c.time, accuracy: V, kills: P.kills || 0, retries: c.retries, rating: L, rec }),
+      M('complete'));
   }
   function B(P) {
     switch (((u += P), _.state)) {
@@ -581,4 +597,4 @@ function createMission(i) {
   );
 }
 
-export { createMission };
+export { MISSION, createMission };
