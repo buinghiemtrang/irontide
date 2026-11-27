@@ -48,8 +48,9 @@ You are the **Breacher**. Control's orders are simple:
 | ⚙️ **Auto quality** | The game picks a graphics level for your device, and you can change it at any time. |
 | 🔫 **Two weapons** | The PAC-9 rifle and the M-12 Breakwater pump shotgun. Switch with `1` / `2` or the mouse wheel. |
 | ⚡ **EMP grenades** | Two per mission. The pulse damages and stuns every machine in range, and cover blocks it. |
+| 🛡️ **Holdout mode** | No relays, no boat: survive escalating waves on the quay, with resupply between waves and a Warden every fifth wave. |
 | 🎚️ **Difficulty** | Easy, Normal or Hard changes enemy health, damage, fire rate and wave size. |
-| 🏅 **Records & badges** | Each run ends with a rating, your personal best for that condition and difficulty, and 8 badges to unlock. |
+| 🏅 **Records & badges** | Each run ends with a rating, your personal best for that condition and difficulty, and 10 badges to unlock. |
 
 ---
 

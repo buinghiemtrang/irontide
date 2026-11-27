@@ -17,6 +17,7 @@ export const BADGES = [
   { id: 'night', label: 'Night Owl', hint: 'Finish at night', test: (r) => r.condition === 'night' },
   { id: 'hard', label: 'Hardened', hint: 'Finish on Hard', test: (r) => r.difficulty === 'hard' },
   { id: 'warden', label: 'Warden Down', hint: 'Destroy the Harbormaster\u2019s Warden', test: (r) => !!r.wardenDown },
+  { id: 'seawall', label: 'Seawall', hint: 'Reach wave 10 in Holdout', test: () => false },
   { id: 'surgical', label: 'Surgical', hint: 'Earn the top rating', test: (r) => r.ratingIndex === RATINGS.length - 1 },
 ];
 
@@ -94,4 +95,13 @@ export function recordRun(G, stats) {
     badges: BADGES.map((b) => ({ id: b.id, label: b.label, hint: b.hint, have: !!data.badges[b.id] })),
     key: { condition, difficulty },
   };
+}
+
+// unlock a badge earned outside the story mission (e.g. holdout)
+export function awardBadge(id) {
+  const data = load();
+  if (data.badges[id] || !BADGES.some((b) => b.id === id)) return false;
+  data.badges[id] = Date.now();
+  save(data);
+  return true;
 }

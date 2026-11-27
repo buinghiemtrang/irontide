@@ -116,6 +116,17 @@ function createMission(i) {
         let P = c.relays.find((V) => !V.cut);
         P && me(P);
       },
+      // used by game modes (holdout): queue a spawn at a picked spawn point
+      queueSpawn(type, delay = 0) {
+        c.queue.push({ type, pos: Q(type), at: c.time + delay });
+      },
+      refreshObjective() {
+        _.state === 'playing' && o.setObjective(D());
+      },
+      get time() {
+        return c.time;
+      },
+      hud: o,
     };
   function M(P) {
     let V = _.state;
@@ -248,6 +259,7 @@ function createMission(i) {
     ((n.enabled = !0), o.show(!0), r.setGameplay && r.setGameplay(!0), o.setObjective(D()), M('playing'), C(!0));
   }
   function D() {
+    if (holdout()) return i.holdout.objective();
     if (c.allCut) return 'Get to the boat';
     let P = c.relays.length - c.cut;
     return c.cut === 0
@@ -358,6 +370,7 @@ function createMission(i) {
     return L;
   }
   function ie() {
+    if (holdout()) return;
     let P = (s.playerStart && s.playerStart.pos) || n.pos;
     for (let V of ['gull', 'hound'])
       for (let Y = 0; Y < MISSION.patrol[V]; Y++)
@@ -435,6 +448,7 @@ function createMission(i) {
       _.state === 'playing' && o.message('Hauled out of the water', 2.5);
     }));
   function $() {
+    if (holdout()) return null;
     let P = null,
       V = MISSION.interactRange;
     for (let Y of c.relays) {
@@ -496,15 +510,22 @@ function createMission(i) {
       q());
   }
   i.events.on('player:dead', () => {
-    (_.state !== 'playing' && _.state !== 'paused') ||
-      (r.setGameplay && r.setGameplay(!1),
+    if (_.state !== 'playing' && _.state !== 'paused') return;
+    (r.setGameplay && r.setGameplay(!1),
       r.exitLock(),
       o.setPrompt && o.setPrompt(null),
       o.show(!1),
-      o.clearRadio && o.clearRadio(),
-      l.setDead({ time: c.time, relays: c.cut, total: c.relays.length }),
-      M('dead'));
+      o.clearRadio && o.clearRadio());
+    // holdout has no retries: the run ends and its score is shown
+    if (holdout()) {
+      (i.holdout.finish(c.time), M('complete'));
+      return;
+    }
+    (l.setDead({ time: c.time, relays: c.cut, total: c.relays.length }), M('dead'));
   });
+  function holdout() {
+    return i.mode === 'holdout' && !!i.holdout;
+  }
   function ee() {
     ((n.invulnerable = !0),
       (n.enabled = !1),

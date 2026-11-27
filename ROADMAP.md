@@ -103,9 +103,9 @@ Mỗi giai đoạn được làm trên một nhánh riêng (`phase-N`, nhánh sa
 
 ---
 
-## ⬜ Giai đoạn 8 · Chế độ Holdout
-- [ ] 8.1 Chế độ mới ở màn hình chính: giữ bến thuyền qua các đợt địch tăng dần
-- [ ] 8.2 Điểm số, đợt cao nhất được lưu làm kỷ lục
+## 🧪 Giai đoạn 8 · Chế độ Holdout
+- [x] 8.1 Chọn **Mode: Mission / Holdout** ở màn hình chính. Holdout: không có relay và thuyền, sống sót qua các đợt địch tăng dần (gull, hound, Shield Hound), Warden xuất hiện mỗi 5 đợt. Nghỉ 10 giây giữa các đợt, được tiếp tế đạn, +1 EMP (tối đa 3), hồi 40 máu
+- [x] 8.2 Điểm theo số máy hạ và đợt vượt qua (nhân theo độ khó). Kỷ lục số đợt và điểm cao nhất được lưu theo điều kiện và độ khó; huy hiệu **Seawall** khi tới đợt 10
 
 **Play test:**
 - [ ] Các đợt tăng độ khó hợp lý

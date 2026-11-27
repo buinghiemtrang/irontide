@@ -25,7 +25,8 @@ function loadSettings() {
       Number.isFinite(e.volume) && (i.volume = Math.min(1, Math.max(0, e.volume))),
       Number.isFinite(e.fov) && (i.fov = Math.min(95, Math.max(60, e.fov))),
       CONDITION_IDS.includes(e.cond) && (i.cond = e.cond),
-      ['easy', 'normal', 'hard'].includes(e.diff) && (i.diff = e.diff));
+      ['easy', 'normal', 'hard'].includes(e.diff) && (i.diff = e.diff),
+      ['mission', 'holdout'].includes(e.mode) && (i.mode = e.mode));
   } catch {}
   return i;
 }
@@ -80,6 +81,18 @@ function createMenu(i, e) {
         <div class="m-cond" role="group" aria-label="Conditions">
           <span class="m-cond-k">Conditions</span>
           <div class="cond-seg">${CONDITION_IDS.map((c) => `<button data-cond="${c}" aria-pressed="${c === condOf(i)}">${CONDITIONS[c].label}</button>`).join('')}</div>
+        </div>
+        <div class="m-cond" role="group" aria-label="Mode">
+          <span class="m-cond-k">Mode</span>
+          <div class="cond-seg">${[
+            ['mission', 'Mission'],
+            ['holdout', 'Holdout'],
+          ]
+            .map(
+              ([m, label]) =>
+                `<button data-mode="${m}" aria-pressed="${m === (i.mode || 'mission')}">${label}</button>`,
+            )
+            .join('')}</div>
         </div>
         <div class="m-cond" role="group" aria-label="Difficulty">
           <span class="m-cond-k">Difficulty</span>
@@ -277,6 +290,13 @@ function createMenu(i, e) {
         U.focus({ preventScroll: !0 });
       } catch {}
   }
+  // mode: mission (relays + boat) or holdout (survive waves); applies on the next deploy
+  s.addEventListener('click', (U) => {
+    let b = U.target.closest('[data-mode]');
+    if (!b) return;
+    ((n.mode = b.dataset.mode), saveSettings(n), (i.mode = n.mode));
+    for (let x of s.querySelectorAll('[data-mode]')) x.setAttribute('aria-pressed', String(x === b));
+  });
   // difficulty only rescales tuning tables: apply immediately, used on the next deploy
   s.addEventListener('click', (U) => {
     let b = U.target.closest('[data-diff]');

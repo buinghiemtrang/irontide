@@ -262,6 +262,9 @@ export function createElites(G) {
     update,
     spawnWarden,
     giveShield,
+    setWave(n) {
+      wave = n;
+    },
     get warden() {
       return warden;
     },

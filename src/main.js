@@ -31,6 +31,7 @@ import { trackRun } from './game/records.js';
 import { createEmp } from './weapon/emp.js';
 import { createLoadout } from './weapon/shotgun.js';
 import { createElites } from './enemies/elites.js';
+import { createHoldout } from './game/holdout.js';
 import { createCustomSfx } from './audio/custom-sfx.js';
 
 var SHOWCASES = {
@@ -98,6 +99,7 @@ async function boot() {
   t.setDifficulty = (id) => applyDifficulty(t, id);
   applyDifficulty(t, i.diff || loadSettings().diff);
   trackRun(t);
+  t.mode = i.mode === 'holdout' || i.mode === 'mission' ? i.mode : loadSettings().mode || 'mission';
   let n = i.show && SHOWCASES[i.show] ? i.show : null;
   t.showcase = n;
   let s = null;
@@ -211,6 +213,7 @@ async function boot() {
       try {
         t.loadout = createLoadout(t);
         t.elites = createElites(t);
+        t.holdout = createHoldout(t);
         t.emp = createEmp(t);
         t.sfx = createCustomSfx(t);
       } catch (h) {
@@ -255,7 +258,8 @@ async function boot() {
         }
     };
   ((u.err = {}),
-    t.renderer.setAnimationLoop(() => {
+    // one frame of the game; exposed as window.__tick so automated tests run the real loop
+    (window.__tick = () => {
       let h = performance.now(),
         f = (h - l) / 1e3;
       ((l = h), (a = a ? a * 0.95 + f * 0.05 : f));
@@ -289,6 +293,8 @@ async function boot() {
         u('nightLights', p),
         u('emp', p),
         u('loadout', p),
+        u('elites', p),
+        u('holdout', p),
         u('ground', p),
         u('level', p),
         u('backdrop', p),
@@ -297,13 +303,15 @@ async function boot() {
         u('hud', p),
         s && (t.camera.position.copy(s.pos), t.camera.lookAt(s.look)),
         t.bench && t.bench.frame(f));
-      try {
-        t.render.frame(p);
-      } catch (v) {
-        u.err.render || ((u.err.render = 1), console.error('[loop] render.frame threw: ' + ((v && v.stack) || v)));
-      }
+      if (!window.__tick.noRender)
+        try {
+          t.render.frame(p);
+        } catch (v) {
+          u.err.render || ((u.err.render = 1), console.error('[loop] render.frame threw: ' + ((v && v.stack) || v)));
+        }
       (t.input.endFrame && t.input.endFrame(), window.__frames++, window.__frames === 2 && (window.__ready = !0));
-    }));
+    }),
+    t.renderer.setAnimationLoop(window.__tick));
 }
 function createBenchOverlay(i) {
   let e = document.createElement('pre');

@@ -465,7 +465,12 @@ export function createLoadout(G) {
     }
   }
 
-  const api = { update, state: S, swap: requestSwap, model: sg, SHOTGUN };
+  // rifle ammo pickups/resupply land in the stash while the shotgun is out
+  function addRifleAmmo(n) {
+    if (rifleStash.reserve != null) rifleStash.reserve += n;
+    else rifle.addAmmo(n);
+  }
+  const api = { update, state: S, swap: requestSwap, addRifleAmmo, model: sg, SHOTGUN };
   return api;
 }
 
