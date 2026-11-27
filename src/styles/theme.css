@@ -1129,3 +1129,46 @@ html {
 .hud .h-tape i.md {
   opacity: 0.95;
 }
+
+/* ---- tuning after playtest feedback ----
+   top compass ~20% stronger, bottom cluster ~10% lighter */
+.hud .h-tape-wrap {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.hud .h-tape i.mn {
+  opacity: 0.9;
+  width: 1.5px;
+}
+.hud .h-tape i.md {
+  opacity: 1;
+  width: 1.5px;
+}
+.hud .h-tape i.mj {
+  width: 2.5px;
+}
+.hud .h-tape b,
+.hud .h-tape b.ic,
+.hud .h-tape b.num {
+  font-weight: 700;
+}
+.hud .h-tape b.card {
+  font-weight: 700;
+  font-size: 17px;
+}
+.hud .h-needle {
+  width: 2.5px;
+}
+.hud .h-compass {
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.55));
+}
+.h-health,
+.h-ammo,
+.h-abil {
+  opacity: 0.9;
+}
+/* warnings stay at full strength */
+.h-health.crit,
+.h-ammo.low {
+  opacity: 1;
+}
