@@ -1214,7 +1214,8 @@ body {
 /* controls at a glance on the title (wide screens; the Controls button covers the rest) */
 .m-legend {
   display: none;
-  flex: none;
+  flex: 0 1 auto;
+  max-width: 52vw;
   text-align: right;
   text-shadow: var(--shadow);
   padding-bottom: 2px;
@@ -1757,7 +1758,7 @@ kbd {
 }
 
 .m-badge-count {
-  margin: 2px 0 22px 106px;
+  margin: 0 0 16px 106px;
   font: 500 11px/1 var(--f-mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1896,4 +1897,32 @@ kbd {
   background: linear-gradient(90deg, #ff5a2a, #ffb347);
   transform-origin: left center;
   transition: transform 0.15s linear;
+}
+
+/* holdout: no relays */
+.mode-holdout .h-relays,
+.mode-holdout .h-cm.relay {
+  display: none;
+}
+
+/* keep the title column wide enough now that the legend has more keys */
+.m-title-main {
+  min-width: min(430px, 100%);
+}
+.m-legend > div {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* title option rows: aligned labels, roomy buttons */
+.m-cond {
+  margin: 2px 0 7px;
+}
+.m-cond .m-cond-k {
+  flex: 0 0 86px;
+}
+.cond-seg button {
+  min-width: 92px;
+  min-height: 34px;
+  padding: 1px 12px 0;
 }

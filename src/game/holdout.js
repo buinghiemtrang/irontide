@@ -95,6 +95,8 @@ export function createHoldout(G) {
     S.phase = active() ? 'break' : 'idle';
     S.timer = HOLDOUT.firstBreak;
     restoreDebrief();
+    // holdout has no relays: hide their HUD row and markers
+    document.documentElement.classList.toggle('mode-holdout', active());
   });
   G.events.on('enemy:killed', () => {
     if (!active() || S.phase !== 'fight') return;
